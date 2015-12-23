@@ -1,9 +1,52 @@
 @import 'vars';
 @import 'typography';
+@import 'code';
+
 
 body {
   font-family: Helvetica, sans-serif;
   color: $font-color--dark;
   background-color: $background--light;
   padding: $half-space;
+}
+
+body {
+    background: #eee; line-height: 140%;
+}
+
+.wykresator {
+
+}
+
+.md-menu > .md-button {
+    margin: 0;
+    border-radius: 0;
+}
+
+md-tabs md-ink-bar {
+    background-color: rgba(255,255,255, 0.6) !important;
+}
+
+.sidenav-margin {
+    margin: 15px;
+}
+
+.toolbar-top {
+    padding-top: 10px;
+    background: transparent !important;
+}
+
+pre {
+    line-height: 150%;
+    font-size: 1.4em;
+    word-wrap: break-word;
+}
+
+md-tabs-wrapper md-icon {
+    color: #fff;
+}
+
+// utility classes
+.toolbar-small {
+    text-transform: uppercase; font-size: 0.7em;
 }

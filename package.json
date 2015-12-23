@@ -32,6 +32,7 @@
     "browser-sync": "^2.7.6",
     "browserify": "^12.0.0",
     "browserify-istanbul": "^0.2.1",
+    "browserify-ng-html2js": "^1.1.5",
     "browserify-ngannotate": "^2.0.0",
     "bulk-require": "^0.2.1",
     "bulkify": "^1.1.1",
@@ -45,6 +46,7 @@
     "gulp-if": "^1.2.5",
     "gulp-imagemin": "^1.1.0",
     "gulp-jshint": "^1.8.3",
+    "gulp-livereload": "^3.8.1",
     "gulp-notify": "^2.0.0",
     "gulp-protractor": "^1.0.0",
     "gulp-rename": "^1.2.0",
@@ -76,5 +78,10 @@
     "test": "karma start test/karma.conf.js",
     "preprotractor": "npm install && webdriver-manager update",
     "protractor": "protractor test/protractor.conf.js"
+  },
+  "dependencies": {
+    "angular-animate": "^1.4.8",
+    "angular-aria": "^1.4.8",
+    "angular-material": "^0.11.4"
   }
 }
