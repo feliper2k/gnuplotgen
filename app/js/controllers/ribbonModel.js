@@ -40,7 +40,18 @@ function gpRibbonModel() {
 
         samples: 100
     };
+
+    vm.datasets = [{
+        name: 'data1',
+        visible: true,
+        icon: 'visibility'
+    }, {
+        name: 'data2',
+        visible: false,
+        icon: 'visibility_off'
+    }];
 }
+
 
 export default {
     name: 'gpRibbonModel',

@@ -89,3 +89,12 @@
         </md-input-container>
     </div>
 </ribbon-item-src>
+
+<ribbon-item-src name="datasetsVisibility">
+    <div layout="row">
+        <md-button class="md-grid-item-content md-margin" class="upright" ng-repeat="dataset in rbm.datasets">
+            <md-icon aria-label="{{ dataset.icon }}" class="material-icons icon-big">{{ dataset.icon }}</md-icon>
+            <div class="md-grid-text md-margin"> {{ dataset.name }} </div>
+        </md-button>
+    </div>
+</ribbon-item-src>
