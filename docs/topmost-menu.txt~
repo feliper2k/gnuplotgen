@@ -1,0 +1,86 @@
+[Top Ribbon]
+Home
+	New plot
+		2D Data
+		2D Function
+		2D Parametric
+		3D Data
+		3D Function
+		Contour map
+	New dataset
+	Export script
+		Simple
+		Embedded data
+	Export as EPS
+	
+Plot
+	Title (String)
+	Canvas size (Number) (Number)
+	Margins
+	Font
+	Colors
+		Style 1
+		Style 2
+		...
+		Style n
+	Key
+		Title
+		Font
+		Box
+		Position
+		Enable
+	Samples
+	Smoothing
+	
+Axes
+	[for each in xyz]:
+	Range
+	Tics
+		Font
+		Angle
+	Zero axis
+	Label
+		Font
+	Logarithmic scale
+	
+Datasets
+	Show/hide datasets
+	Manage datasets (CRUD?)
+	[for each dataset]:
+	Plot with... (linestyle)
+	
+3D View (3D only)
+	Contour
+		Show/hide
+	Rotation
+		[rotation dial/cube]
+	Zoom
+	Borders
+		[cube display]
+	Palette mapping
+		Enable
+		Use palette
+	Isosamples
+
+[Not Menu]
+Toolbox
+	Auto Update
+	Pan/Zoom
+	Resize
+	Mark points
+	Rotate 3D
+	Active datasets
+
+Splash
+	New 2D Data Plot
+	New 3D Function Plot
+	More
+		2D Parametric
+		3D Data
+		Contour map
+
+Connection
+	Reconnect
+	Drawing server location
+
+Dataset manager window!!!!! [TODO - md-dialog jest gut]

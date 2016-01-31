@@ -3,82 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>GNUPLOT GUI Demo</title>
+    <title>Gnuplot Plot &amp; Script Generator</title>
     <link rel="stylesheet" href="css/angular-material.css">
     <link rel="stylesheet" href="css/main.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href='https://fonts.googleapis.com/css?family=Roboto:400,300,700' rel='stylesheet' type='text/css'>
 </head>
 <body>
-    <div ng-cloak>
-        <nav class="gpg-menubar" ng-include="'partials/menubar.html'">
+    <nav flex ng-include="'partials/menubar.html'">
 
-        </nav>
-        <section class="wykresator" flex layout="row" layout-md="column">
-            <md-content class="layout-margin md-whiteframe-z2" md-component-id="left" flex-gt-md="65" flex-md="100">
-                <md-toolbar>
-                    <div class="md-toolbar-tools">
-                        <h2>
-                            <md-icon aria-label="image" class="material-icons">image</md-icon> <span>Plot</span>
-                        </h2>
-                        <span flex></span>
-                        <md-button class="md-icon-button" aria-label="Download" title="Download">
-                            <md-icon aria-label="get_app" class="material-icons">get_app</md-icon>
-                        </md-button>
-                        <md-menu md-offset="0 70">
-                            <md-button class="md-icon-button" aria-label="More" title="More..."  ng-click="$mdOpenMenu()">
-                                <md-icon aria-label="more_horiz" class="material-icons">more_horiz</md-icon>
-                            </md-button>
-                            <md-menu-content width="4">
-                                <md-menu-item>
-                                    <md-button gp-menu-action="importCSV">
-                                        <md-icon aria-label="done" class="material-icons" md-menu-align-target>done</md-icon> <span>Validate</span>
-                                    </md-button>
-                                </md-menu-item>
-                                <md-menu-item>
-                                    <md-button gp-menu-action="exportCSV">
-                                        <md-icon></md-icon> <span>Export settings</span>
-                                    </md-button>
-                                </md-menu-item>
-                            </md-menu-content>
-                        </md-menu>
-                    </div>
-                </md-toolbar>
-                <md-content class="md-padding">
-                    [plot]
-                </md-content>
-                <md-divider></md-divider>
-                <md-content class="md-padding gg-code__window">set terminal svg size 600,400 enhanced fname 'Arial' fsize 12 name "simple_1"
-# set output 'simple.1.svg'
-set key inside left top
-set samples 50, 50
-set title "Simple Plots"
-set title  font ",20" norotate
-plot [-10:10] sin(x),atan(x),cos(atan(x))
-                </md-content>
-            </md-content>
-            <md-tabs md-border-bottom md-dynamic-height class="md-primary layout-margin md-whiteframe-z2" flex md-component-id="right">
-                <md-tab label="Data">
-                    <md-content>
-wgwegwwegweg
-                    </md-content>
-                </md-tab>
-                <md-tab label="Plot style">
-                    <md-content>
-wegwegwe
-                    </md-content>
-                </md-tab>
-                <md-tab label="Formatting">
-                    <md-content>
-wegweg
-                    </md-content>
-                </md-tab>
-                <md-tab label="Axes &amp; View">
-                    <md-content>
-wegewgwe
-                    </md-content>
-                </md-tab>
-            </md-tabs>
-        </section>
+    </nav>
+    <div ng-cloak layout="row" flex>
+        <md-section class="gpg-plot-area" flex>
+
+        </md-section>
     </div>
 
     <script src="js/main.js"></script>

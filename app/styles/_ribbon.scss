@@ -1,0 +1,67 @@
+$section-size: 15px;
+$icon-size-lg: 36px;
+
+.ribbon__ {
+    &tabs {
+        background-color: #f7f7f7;
+
+        button {
+            &:hover {
+                background-color: #eee !important;    // sadly, hardcoded
+            }
+        }
+
+        button {
+            text-transform: none;
+        }
+
+        md-icon.icon-big {
+            font-size: $icon-size-lg;
+            width: $icon-size-lg;
+            height: $icon-size-lg;
+        }
+
+        &:hover md-tabs-content-wrapper {
+            display: block;
+        }
+    }
+
+    &section {
+        position: relative; margin-bottom: $section-size;
+        padding: 0px 15px;
+        min-height: 80px;
+
+        md-menu, button {
+            padding: 8px;
+        }
+
+        md-input-container {
+            padding-bottom: 10px;
+        }
+
+        &:after {
+            content: attr(data-section); display: block;
+            position: absolute; left: 0%; top: 100%; width: 100%;
+            height: $section-size; font-size: $section-size/1.5;
+            line-height: $section-size;
+            text-transform: uppercase;
+            text-align: center;
+            text-shadow: #fff 0px 1px 2px;
+            transition: color 0.3s linear;
+        }
+
+        &:hover::after {
+            color: $teal;
+        }
+
+        & + & {
+            border-left: solid 1px #ddd;
+        }
+
+        // form styles
+        .md-button.form-button {
+            text-transform: uppercase; margin: 10px;
+            padding: 2px 10px;
+        }
+    }
+}

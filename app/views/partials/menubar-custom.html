@@ -1,0 +1,43 @@
+<!-- custom forms etc. -->
+<ribbon-item-src name="plotGeneral">
+    <div class="row">
+        <md-input-container>
+            <label>Plot title</label>
+            <input type="text" name="plotTitle" value="" ng-model="rbm.plot.title">
+        </md-input-container>
+    </div>
+    <div class="row" layout="row">
+        <md-input-container>
+            <label>Width</label>
+            <input type="number" name="plotCanvasW" value="0" ng-model="rbm.plot.canvas.width">
+        </md-input-container>
+        <md-input-container>
+            <label>Height</label>
+            <input type="number" name="plotCanvasH" value="0" ng-model="rbm.plot.canvas.height">
+        </md-input-container>
+    </div>
+</ribbon-item-src>
+
+<ribbon-item-src name="plotStyle">
+    <div class="row" layout="row">
+        <md-input-container flex="70">
+            <label>Font face</label>
+            <md-select ng-model="rbm.plot.style.fontFace">
+                <md-option ng-repeat="(fontName, fontValue) in rbm.plot.style.fontsAvailable" value="{{ fontValue }}" >{{ fontName }}</md-option>
+            </md-select>
+        </md-input-container flex="30">
+        <md-input-container>
+            <label>Size</label>
+            <input type="number" name="plotStyleFontSize" value="0" ng-model="rbm.plot.style.fontSize">
+        </md-input-container>
+    </div>
+    <div class="row" layout="row">
+        <md-input-container flex>
+            <label>Line styles</label>
+            <md-select ng-model="rbm.plot.style.lineStyle">
+                <md-option ng-repeat="(fontName, fontValue) in rbm.plot.style.fontsAvailable" value="{{ fontValue }}" >{{ fontName }}</md-option>
+            </md-select>
+        </md-input-container flex>
+        <md-button class="md-raised form-button">Customize</md-button>
+    </div>
+</ribbon-item-src>

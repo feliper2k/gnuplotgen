@@ -1,13 +1,13 @@
 @import 'vars';
 @import 'typography';
 @import 'code';
+@import 'ribbon';
 
 
 body {
-  font-family: Helvetica, sans-serif;
+  font-family: 'Roboto', sans-serif;
   color: $font-color--dark;
-  background-color: $background--light;
-  padding: $half-space;
+  background-color: #f9f9f9;
 }
 
 body {
@@ -31,11 +31,6 @@ md-tabs md-ink-bar {
     margin: 15px;
 }
 
-.toolbar-top {
-    padding-top: 10px;
-    background: transparent !important;
-}
-
 pre {
     line-height: 150%;
     font-size: 1.4em;
@@ -44,9 +39,4 @@ pre {
 
 md-tabs-wrapper md-icon {
     color: #fff;
-}
-
-// utility classes
-.toolbar-small {
-    text-transform: uppercase; font-size: 0.7em;
 }
