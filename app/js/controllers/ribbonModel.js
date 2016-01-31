@@ -6,17 +6,39 @@ function gpRibbonModel() {
 
     vm.plot = {
         title: "",
+
         canvas: {
-            height: 0, width: 0
+            height: 400, width: 600
         },
+
         style: {
             fontsAvailable: {
                 'Sans-serif': 'sans',
                 'Serif': 'serif'
             },
             fontFace: 'sans',
-            fontSize: 12
-        }
+            fontSize: 12,
+
+            lineStylesAvailable: [{
+                label: 'Subtle',
+                id: 'subtle',
+                value: 'something'
+            }],
+            lineStyle: 'subtle',
+
+            key: {
+                enable: true
+            }
+        },
+
+        axes: {
+            active: 'x',
+            x: {},
+            y: {},
+            z: {}
+        },
+
+        samples: 100
     };
 }
 

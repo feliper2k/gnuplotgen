@@ -1,4 +1,4 @@
-<md-tabs md-border-bottom md-dynamic-height class="md-primary ribbon__tabs md-whiteframe-z2" flex>
+<md-tabs md-dynamic-height class="md-primary ribbon__tabs md-whiteframe-z1" flex>
     <div ng-controller="gpRibbonController as ribbon">
         <md-tab ng-repeat="(tabLabel, tab) in ribbon.tabs" label="{{ tabLabel }}" layout="column">
             <md-list layout="row">
@@ -6,16 +6,17 @@
                 ng-repeat="(sectionLabel, section) in tab">
 
                     <!-- normal ribbonItem -->
-                    <md-button class="md-grid-item-content md-margin" ng-repeat-start="ribbonItem in section" ng-if="ribbonItem.type === 'single'">
+                    <md-button class="md-grid-item-content md-margin" ng-class="{'upright': ribbonItem.upright}" ng-repeat-start="ribbonItem in section"
+                        ng-if="ribbonItem.type === 'single'">
                         <md-icon aria-label="{{ ribbonItem.icon }}" class="material-icons  icon-big">{{ ribbonItem.icon }}</md-icon>
-                        <div class="md-grid-text"> {{ ribbonItem.label }} </div>
+                        <div class="md-grid-text md-margin"> {{ ribbonItem.label }} </div>
                     </md-button>
 
                     <!-- menu ribbonItem -->
                     <md-menu width="4" md-offset="0 0"  ng-if="ribbonItem.type === 'menu'">
-                        <md-button ng-click="$mdOpenMenu($event)">
+                        <md-button ng-click="$mdOpenMenu($event)" class="md-grid-item-content md-margin" ng-class="{'upright': ribbonItem.upright}">
                             <md-icon aria-label="{{ ribbonItem.icon }}" class="material-icons icon-big">{{ ribbonItem.icon }}</md-icon>
-                            <div class="md-grid-text"> {{ ribbonItem.label }} </div>
+                            <div class="md-grid-text md-margin"> {{ ribbonItem.label }} </div>
                         </md-button>
                         <md-menu-content>
                             <md-menu-item ng-repeat="menuItem in ribbonItem.menu">

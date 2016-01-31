@@ -12,39 +12,39 @@ Home
 		Simple
 		Embedded data
 	Export as EPS
+
+	na chuj ten zoom w ogóle?
 	
 Plot
 	Title (String)
 	Canvas size (Number)
 	Margins
 	Font
-	Colors
+	Line styles
 		Style 1
 		Style 2
 		...
 		Style n
+	Samples
 	Key
 		Title
 		Font
 		Box
 		Position
 		Enable
-	Samples
-	Smoothing
+	
 	
 Axes
 	[for each in xyz]:
-	Range
+	Label
+	Min/max X
 	Tics
-		Font
 		Angle
 	Zero axis
-	Label
-		Font
 	Logarithmic scale
 	
 Datasets
-	Show/hide datasets
+	Toggle datasets
 	Manage datasets (CRUD?)
 	[for each dataset]:
 	Plot with... (linestyle)
@@ -58,7 +58,7 @@ Datasets
 	Borders
 		[cube display]
 	Palette mapping
-		Enable
+		Toggle
 		Use palette
 	Isosamples
 
@@ -82,5 +82,7 @@ Splash
 Connection
 	Reconnect
 	Drawing server location
+
+
 
 Dataset manager window!!!!! [TODO - md-dialog jest gut]

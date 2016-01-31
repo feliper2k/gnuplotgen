@@ -9,6 +9,30 @@ let tabsPlot = {
     'Appearance': [{
         type: 'custom',
         name: 'plotStyle'
+    }],
+
+    'More': [{
+        type: 'single',
+        label: 'Margins',
+        action: 'plotAppearanceMargins',
+        icon: 'picture_in_picture',
+        upright: true
+    },
+    {
+        type: 'menu',
+        label: 'Plot Key',
+        action: 'plotKey',
+        icon: 'vpn_key',
+        upright: true,
+        menu: [{
+            label: 'Toggle',
+            action: 'plotKeyToggle',
+            icon: 'remove_red_eye'
+        }, {
+            label: 'Customize...',
+            action: 'plotKeyCustomize',
+            icon: 'settings'
+        }]
     }]
 };
 

@@ -59,6 +59,13 @@ let tabsHome = {
         icon: 'image',
         type: 'single',
         action: 'exportEPS'
+    }],
+
+    'Misc': [{
+        label: 'Connection',
+        icon: 'settings_input_hdmi',
+        type: 'single',
+        action: 'manageConnection'
     }]
 };
 

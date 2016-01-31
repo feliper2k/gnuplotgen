@@ -15,6 +15,8 @@ function RibbonItemDest(ribbonItemStorage) {
                 for(let i in itemChildren) {
                     element.append(itemChildren[i]);
                 }
+
+                element.addClass('ribbonitem__' + itemName);
             }
         }
     };

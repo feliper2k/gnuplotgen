@@ -1,24 +1,49 @@
 $section-size: 15px;
+$icon-size-md: 24px;
 $icon-size-lg: 36px;
 
 .ribbon__ {
     &tabs {
         background-color: #f7f7f7;
 
+        // autohide
+        // & md-tabs-content-wrapper {
+        //     display: none;
+        // }
+        //
+        // &:hover md-tabs-content-wrapper {
+        //     display: block;
+        // }
+
+        .md-button.md-grid-item-content:not(.upright) {
+            display: flex;
+        }
+
         button {
+            text-transform: none;
+
             &:hover {
                 background-color: #eee !important;    // sadly, hardcoded
             }
         }
 
-        button {
-            text-transform: none;
+        @media all and (max-width: 599px) {
+            button .md-grid-text {
+                display: none;
+            }
         }
 
         md-icon.icon-big {
-            font-size: $icon-size-lg;
-            width: $icon-size-lg;
-            height: $icon-size-lg;
+            @media all and (max-width: 599px) {
+                font-size: $icon-size-md;
+                width: $icon-size-md;
+                height: $icon-size-md;
+            }
+            @media all and (min-width: 600px) {
+                font-size: $icon-size-lg;
+                width: $icon-size-lg;
+                height: $icon-size-lg;
+            }
         }
 
         &:hover md-tabs-content-wrapper {
@@ -26,10 +51,28 @@ $icon-size-lg: 36px;
         }
     }
 
+    &tabs:hover &section {
+        margin-bottom: $section-size;
+
+        &:after {
+            opacity: 1;
+        }
+    }
+
     &section {
-        position: relative; margin-bottom: $section-size;
-        padding: 0px 15px;
-        min-height: 80px;
+        position: relative; margin-bottom: 0px;
+        padding: 0px 20px;
+
+
+        @media all and (max-width: 599px) {
+            min-height: 60px;
+        }
+        @media all and (min-width: 600px) {
+            min-height: 80px;
+        }
+
+
+        transition: margin-bottom 0.3s ease;
 
         md-menu, button {
             padding: 8px;
@@ -47,7 +90,8 @@ $icon-size-lg: 36px;
             text-transform: uppercase;
             text-align: center;
             text-shadow: #fff 0px 1px 2px;
-            transition: color 0.3s linear;
+            transition: all 0.3s linear;
+            opacity: 0;
         }
 
         &:hover::after {
@@ -64,4 +108,10 @@ $icon-size-lg: 36px;
             padding: 2px 10px;
         }
     }
+}
+
+// custom item adjustments
+.ribbonitem__plotGeneral,
+.ribbonitem__axesGeneral {
+    max-width: 250px;
 }
