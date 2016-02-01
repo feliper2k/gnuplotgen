@@ -1,14 +1,10 @@
 'use strict';
 
-function gpRibbonFormsController(ribbonModel) {
+function gpRibbonFormsController(plotModel) {
     'ngInject';
 
     const vm = this;
-    // vm.rbm = ribbonModel;
-
-    vm.rbm = {
-        title: "23r2323"
-    };
+    vm.plot = plotModel;
 }
 
 export default {

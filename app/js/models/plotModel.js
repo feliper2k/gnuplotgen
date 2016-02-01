@@ -1,6 +1,6 @@
 'use strict';
 
-function gpRibbonModel() {
+function gpPlotModel() {
     // ViewModel
     const vm = this;
     let angular = require('angular'),
@@ -53,6 +53,6 @@ function gpRibbonModel() {
 
 
 export default {
-    name: 'ribbonModel',
-    value: gpRibbonModel()
+    name: 'plotModel',
+    value: gpPlotModel()
 };

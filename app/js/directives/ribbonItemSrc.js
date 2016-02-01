@@ -14,7 +14,7 @@ function RibbonItemSrc(ribbonItemStorage) {
                 ribbonItemStorage.put(itemName, transclude(scope)[0].children);
             }
 
-            scope.data = {};
+            // scope.data = {};
         }
     };
 }
