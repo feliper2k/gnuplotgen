@@ -16,8 +16,8 @@ $icon-size-lg: 36px;
         //     display: block;
         // }
 
-        .md-button.md-grid-item-content:not(.upright) {
-            display: flex;
+        .md-button:not(.upright) > * {
+            display: inline-block;
         }
 
         button {
