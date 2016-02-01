@@ -1,6 +1,8 @@
 'use strict';
 
-function gpRibbonController() {
+function gpRibbonController(ribbonActionListener) {
+    'ngInject';
+
     // ViewModel
     const vm = this;
 
@@ -17,6 +19,8 @@ function gpRibbonController() {
         'Datasets': tabsDatasets
         // '3D View': tabs3DView
     };
+
+    vm.action = ribbonActionListener;
 }
 
 export default {

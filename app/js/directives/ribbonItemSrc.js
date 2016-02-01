@@ -13,8 +13,6 @@ function RibbonItemSrc(ribbonItemStorage) {
             if(ribbonItemStorage) {
                 ribbonItemStorage.put(itemName, transclude(scope)[0].children);
             }
-
-            // scope.data = {};
         }
     };
 }

@@ -1,8 +1,6 @@
 'use strict';
 
 function gpPlotModel() {
-    // ViewModel
-    const vm = this;
     let angular = require('angular'),
         plot;
 

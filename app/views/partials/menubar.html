@@ -7,7 +7,7 @@
 
                     <!-- normal ribbonItem -->
                     <md-button class="md-grid-item-content md-margin" ng-class="{'upright': ribbonItem.upright}" ng-repeat-start="ribbonItem in section"
-                        ng-if="ribbonItem.type === 'single'">
+                        ng-if="ribbonItem.type === 'single'" ng-click="ribbon.action.execute(ribbonItem.action, $event)">
                         <md-icon aria-label="{{ ribbonItem.icon }}" class="material-icons  icon-big">{{ ribbonItem.icon }}</md-icon>
                         <div class="md-grid-text md-margin"> {{ ribbonItem.label }} </div>
                     </md-button>
@@ -20,7 +20,7 @@
                         </md-button>
                         <md-menu-content>
                             <md-menu-item ng-repeat="menuItem in ribbonItem.menu">
-                                <md-button>
+                                <md-button ng-click="ribbon.action.execute(ribbonItem.action, $event)">
                                     <md-icon aria-label="{{ menuItem.icon }}" class="material-icons">{{ menuItem.icon }}</md-icon>
                                     <span>{{ menuItem.label }}</span>
                                 </md-button>
