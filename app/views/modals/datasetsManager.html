@@ -1,0 +1,52 @@
+<md-dialog aria-label="Datasets Manager" class="dialog__datasets" ng-cloak>
+    <md-toolbar>
+        <div class="md-toolbar-tools">
+            <h2 flex>Manage datasets</h2>
+            <md-button class="md-icon-button" ng-click="dm.cancel()">
+                <md-icon aria-label="close">close</md-icon>
+            </md-button>
+        </div>
+    </md-toolbar>
+    <md-dialog-content>
+        <md-list class="md-margin">
+            <md-list-item ng-repeat="ds in dm.datasets.getCollection()" class="md-margin">
+                <md-icon aria-label="storage">storage</md-icon>
+                <p class="md-grid-text text-label" flex>
+                    <md-input-container>
+                        <label>Display name</label>
+                        <input type="text" ng-model="ds.label">
+                    </md-input-container>
+                </p>
+                <p class="text-typeof">{{ ds.type }}</p>
+                <!-- <md-button ng-click="dm.datasets.delete($index)" class="md-icon-button">
+                    <md-icon
+                </md-button> -->
+                <md-menu width="4">
+                    <md-button class="md-icon-button" ng-click="$mdOpenMenu($event)">
+                        <md-icon aria-label="settings">settings</md-icon>
+                    </md-button>
+                    <md-menu-content>
+                        <md-menu-item ng-click="dm.datasets.edit($index)" disabled="ds.type === 'data'">
+                            <md-button>
+                                <md-icon aria-label="mode_edit">mode_edit</md-icon>
+                                <span>Edit</span>
+                            </md-button>
+                        </md-menu-item>
+                        <md-menu-item ng-click="dm.datasets.delete($index)">
+                            <md-button>
+                                <md-icon aria-label="delete">delete</md-icon>
+                                <span>Delete</span>
+                            </md-button>
+                        </md-menu-item>
+                    </md-menu-content>
+                </md-menu>
+            </md-list-item>
+            <md-list-item ng-if="!dm.datasets.getCollection().length" layout-align="center">
+                <md-button class="special__addbutton md-no-ripple" layout="column">
+                    <md-icon aria-label="add_circle_outline">add_circle_outline</md-icon>
+                    <p class="md-grid-text">Add new dataset</p>
+                </md-button>
+            </md-list-item>
+        </md-list>
+    </md-dialog-content>
+</md-dialog>

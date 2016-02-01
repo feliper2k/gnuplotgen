@@ -30,7 +30,7 @@ $icon-size-lg: 36px;
 
         @media all and (max-width: 599px) {
             button .md-grid-text {
-                display: none;
+                display: none !important;
             }
         }
 

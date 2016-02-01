@@ -1,0 +1,45 @@
+$decoration-text-color: #333;
+
+md-dialog {
+    min-width: 50%;
+
+    md-toolbar {
+        background-color: transparent !important;
+        color: $decoration-text-color !important;
+        min-height: inherit !important;
+
+        h2 {
+            font-size: 0.8em !important;
+            text-align: center;
+            text-transform: uppercase;
+            padding-top: 4px;
+        }
+
+        md-icon {
+            color: $decoration-text-color !important;
+        }
+    }
+
+    .md-toolbar-tools {
+        height: 36px !important;
+        padding: 8px !important;
+    }
+}
+
+.dialog__datasets {
+    p {
+        margin-top: 4px;
+    }
+    .text-typeof {
+        text-transform: capitalize;
+        color: #666;
+        font-size: 0.8em;
+        margin-left: 12px;
+        flex: 0 1 50px;
+        text-align: right;
+    }
+
+    .text-label {
+        min-width: 200px;
+    }
+}

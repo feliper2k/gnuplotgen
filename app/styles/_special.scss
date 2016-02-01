@@ -1,0 +1,15 @@
+.special__ {
+    &addbutton {
+        opacity: 0.5;
+        transition: opacity 0.5s ease;
+
+        md-icon {
+            font-size: 64px;
+            height: 64px; width: 64px;
+        }
+
+        &:hover {
+            opacity: 1;
+        }
+    }
+}

@@ -4,6 +4,12 @@ function gpPlotModel() {
     let angular = require('angular'),
         plot;
 
+    let options = {
+        fontFace: ['sans', 'sans-serif'],
+        lineStyle: '',
+        fontSize: [6, 8, 10, 11, 12, 14, 16, 18, 20, 22, 24, 28, 32, 36, 48, 64, 72]
+    };
+
     let initPlot = {
         title: "",
 
@@ -12,10 +18,6 @@ function gpPlotModel() {
         },
 
         style: {
-            fontsAvailable: {
-                'Sans-serif': 'sans',
-                'Serif': 'serif'
-            },
             fontFace: 'sans',
             fontSize: 12,
 
@@ -42,7 +44,19 @@ function gpPlotModel() {
 
         reset: () => {
             plot = initPlot;
-        }
+        },
+
+        plotStyles: [{
+            name: 'Style 1',
+            plotWith: 'lines',
+            lineColor: '#990000',
+            lineWidth: 2,
+            dashType: 0,
+            pointType: 0
+        }],
+        plotStyleActive: 0,
+
+        options: options
     };
 
     initPlot.reset();

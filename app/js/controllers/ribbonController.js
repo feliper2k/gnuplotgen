@@ -10,13 +10,14 @@ function gpRibbonController(ribbonActionListener) {
     let tabsHome = require('./ribbon/ribbon-tab-home.js'),
         tabsPlot = require('./ribbon/ribbon-tab-plot.js'),
         tabsAxes = require('./ribbon/ribbon-tab-axes.js'),
-        tabsDatasets = require('./ribbon/ribbon-tab-datasets.js');
+        tabsStyles = require('./ribbon/ribbon-tab-styles.js');
 
-    vm.tabs = {
-        'Home': tabsHome,
-        'Plot': tabsPlot,
-        'Axes': tabsAxes,
-        'Datasets': tabsDatasets
+        vm.tabs = {
+            'Home': tabsHome,
+            'Plot': tabsPlot,
+            'Axes': tabsAxes,
+            'Styles': tabsStyles
+        // 'Datasets': tabsDatasets
         // '3D View': tabs3DView
     };
 

@@ -41,6 +41,13 @@ let tabsHome = {
         action: 'newDataset'
     }],
 
+    'Data': [{
+        label: 'Manage datasets',
+        icon: 'data_usage',
+        type: 'single',
+        action: 'manageDatasets'
+    }],
+
     'Export': [{
         label: 'Export script',
         icon: 'code',

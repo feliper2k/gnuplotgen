@@ -9,11 +9,11 @@
                     <md-button class="md-grid-item-content md-margin" ng-class="{'upright': ribbonItem.upright}" ng-repeat-start="ribbonItem in section"
                         ng-if="ribbonItem.type === 'single'" ng-click="ribbon.action.execute(ribbonItem.action, $event)">
                         <md-icon aria-label="{{ ribbonItem.icon }}" class="material-icons  icon-big">{{ ribbonItem.icon }}</md-icon>
-                        <div class="md-grid-text md-margin"> {{ ribbonItem.label }} </div>
+                        <div class="md-grid-text md-margin" ng-bind="ribbonItem.label"></div>
                     </md-button>
 
                     <!-- menu ribbonItem -->
-                    <md-menu width="4" md-offset="0 0"  ng-if="ribbonItem.type === 'menu'">
+                    <md-menu width="4" md-offset="0 15"  ng-if="ribbonItem.type === 'menu'">
                         <md-button ng-click="$mdOpenMenu($event)" class="md-grid-item-content md-margin" ng-class="{'upright': ribbonItem.upright}">
                             <md-icon aria-label="{{ ribbonItem.icon }}" class="material-icons icon-big">{{ ribbonItem.icon }}</md-icon>
                             <div class="md-grid-text md-margin"> {{ ribbonItem.label }} </div>

@@ -43,11 +43,13 @@ Axes
 	Zero axis
 	Logarithmic scale
 	
-Datasets
-	Toggle datasets
-	Manage datasets (CRUD?)
-	[for each dataset]:
-	Plot with... (linestyle)
+Style
+	Current dataset
+	Line color
+	Plot with (filledcurves, linespoints, etc.)
+	Line width
+	Line dash type
+	Point type
 	
 3D View (3D only)
 	Contour
