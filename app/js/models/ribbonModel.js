@@ -3,8 +3,10 @@
 function gpRibbonModel() {
     // ViewModel
     const vm = this;
+    let angular = require('angular'),
+        plot;
 
-    vm.plot = {
+    let initPlot = {
         title: "",
 
         canvas: {
@@ -38,22 +40,19 @@ function gpRibbonModel() {
             z: {}
         },
 
-        samples: 100
+        samples: 100,
+
+        reset: () => {
+            plot = initPlot;
+        }
     };
 
-    vm.datasets = [{
-        name: 'data1',
-        visible: true,
-        icon: 'visibility'
-    }, {
-        name: 'data2',
-        visible: false,
-        icon: 'visibility_off'
-    }];
+    initPlot.reset();
+    return plot;
 }
 
 
 export default {
-    name: 'gpRibbonModel',
-    fn: gpRibbonModel
+    name: 'ribbonModel',
+    value: gpRibbonModel()
 };

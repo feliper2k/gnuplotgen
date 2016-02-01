@@ -12,6 +12,7 @@ import './filters';
 import './controllers';
 import './services';
 import './directives';
+import './models';
 
 // create and bootstrap application
 const requires = [
@@ -23,6 +24,7 @@ const requires = [
   'app.filters',
   'app.controllers',
   'app.services',
+  'app.models',
   'app.directives'
 ];
 

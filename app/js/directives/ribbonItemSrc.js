@@ -6,6 +6,7 @@ function RibbonItemSrc(ribbonItemStorage) {
     return {
         restrict: 'E',
         transclude: 'element',
+        scope: true,
         link: (scope, element, attrs, ctrl, transclude) => {
             let itemName = attrs.name;
 
