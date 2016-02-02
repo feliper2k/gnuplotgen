@@ -28,3 +28,4 @@ function feed(inputStream) {
 }
 
 exports.feed = feed;
+exports.parse = parseToObject;

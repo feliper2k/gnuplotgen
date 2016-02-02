@@ -31,7 +31,6 @@ router
 })
 .post('/plot', function (req, res) {
     var gnuplotString = req.body.commands;
-    console.log(gnuplotString);
 
     res.set({
         'Access-Control-Allow-Origin': '*',
@@ -45,56 +44,52 @@ router
         res.set('ETag', eTag);
     }
 
-    try {
-        // var mtStart = microtime.now();
-        var gp = gnuplot();
-        var gnuplotPrint = gp.print(gnuplotString)
-            .println("\nshow variables all", { end: true});
+    // var mtStart = microtime.now();
+    var gp = gnuplot();
+    var gnuplotPrint = gp.print(gnuplotString)
+        .println("\nshow variables all", { end: true});
 
-        var mtStart = microtime.now();
-        var bufs = [];
+    var mtStart = microtime.now();
+    var bufs = [];
 
-        gnuplotPrint.on('data', function (chunk) {
-            bufs.push(chunk);
-        })
-        .on('end', function () {
-            var mtDelta = microtime.now() - mtStart;
-            var mtSeconds = (mtDelta/1000000).toFixed(5)+'s';
-            var framesPerSecond = (1000000/mtDelta).toFixed(1);
+    gnuplotPrint.on('data', function (chunk) {
+        bufs.push(chunk);
+    })
+    .on('end', function () {
+        var mtDelta = microtime.now() - mtStart;
+        var mtSeconds = (mtDelta/1000000).toFixed(5)+'s';
+        var framesPerSecond = (1000000/mtDelta).toFixed(1);
 
+        var responseObject = {
+            image: 'data:image/png;base64,' + Buffer.concat(bufs).toString('base64'),
+            status: {
+                execTime: mtSeconds,
+                fps: framesPerSecond
+            }
+        };
 
-            var responseObject = {
-                image: 'data:image/png;base64,' + Buffer.concat(bufs),
-                status: {
-                    execTime: mtSeconds,
-                    fps: framesPerSecond
-                }
-            };
+        gp.done.then(function success(status) {
+            responseObject.status.variables = gpVarParser.parse(status);
+            res.status(200).send(JSON.stringify(responseObject)).end();
+        }, function failure(errMsg) {
+            // error messages are three first lines of the errMsg
+            var failureMsg = errMsg.split(/[\r\n]/).slice(1,4).join("\n");
 
-            // fetch variables
-            gpVarParser.feed(gp.stderr)
-                .then(function(result) {
-                    responseObject.status.variables = result;
-                    res.status(200).send(JSON.stringify(responseObject)).end();
-                });
+            res.status(400).send(JSON.stringify({
+                error: failureMsg
+            })).end();
         });
+    });
 
-        gnuplotPrint.resume();
-    }
-    catch(e) {
-        // gnuplot error catch-all
-        res.status(400).send(e.message);
-    }
+    gnuplotPrint.resume();
 })
 .post('/eps', function (req, res) {
     res.set({
         'Content-type': 'application/eps',
         'Content-disposition': 'attachment; filename=plot.eps'
     });
-    //res.send()
 })
 .post('/codedl', function (req, res) {
-    //res.
     res.set({
         'Content-type': 'text/plain',
         'Content-disposition': 'attachment; filename=plot-script.gp'
