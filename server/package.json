@@ -8,11 +8,13 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "body-parser": "^1.14.2",
+    "body-parser": "1.14.2",
     "comandante": "feliper2k/comandante",
-    "express": "^4.13.4",
-    "gnuplot": "^0.3.0",
-    "microtime": "^2.0.0",
-    "q": "^1.4.1"
+    "express": "4.13.4",
+    "gnuplot": "0.3.0",
+    "lodash": "4.2.0",
+    "microtime": "2.0.0",
+    "multer": "^1.1.0",
+    "q": "1.4.1"
   }
 }

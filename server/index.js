@@ -2,9 +2,12 @@ var fs = require('fs');
 var gnuplot = require('gnuplot');
 var microtime = require('microtime');
 var bodyParser = require('body-parser');
-var crypto = require('crypto');
 var express = require('express');
 var gpVarParser = require('./gp-variables.js');
+var multer = require('multer');
+var upload = multer({
+    dest: 'uploads/'
+});
 
 var app = express();
 var router = express.Router();
@@ -38,13 +41,6 @@ router
         'Access-Control-Allow-Headers:': 'Origin, X-Requested-With, Content-Type, Accept'
     });
 
-    // generate e-tag so that changed requests won't be cached
-    if(gnuplotString) {
-        var eTag = crypto.createHash('md5').update(gnuplotString, 'utf8').digest('hex');
-        res.set('ETag', eTag);
-    }
-
-    // var mtStart = microtime.now();
     var gp = gnuplot();
     var gnuplotPrint = gp.print(gnuplotString)
         .println("\nshow variables all", { end: true});
@@ -60,8 +56,10 @@ router
         var mtSeconds = (mtDelta/1000000).toFixed(5)+'s';
         var framesPerSecond = (1000000/mtDelta).toFixed(1);
 
+        var imageUrl = 'data:image/png;base64,' + Buffer.concat(bufs).toString('base64');
+
         var responseObject = {
-            image: 'data:image/png;base64,' + Buffer.concat(bufs).toString('base64'),
+            image: imageUrl,
             status: {
                 execTime: mtSeconds,
                 fps: framesPerSecond
@@ -88,12 +86,31 @@ router
         'Content-type': 'application/eps',
         'Content-disposition': 'attachment; filename=plot.eps'
     });
-})
-.post('/codedl', function (req, res) {
-    res.set({
-        'Content-type': 'text/plain',
-        'Content-disposition': 'attachment; filename=plot-script.gp'
+
+    // clear stale files
+    var lifespan = 60 * 1000;  // 1 minute
+    var tmpPath = __dirname + '/tmp';
+
+    fs.readdir(tmpPath, function (err, files) {
+        files.map(function (fileName) {
+            var filePath = tmpPath + '/' + fileName;
+            var stat = fs.statSync(filePath);
+            stat.path = filePath;
+            return stat;
+        }).filter(function (file) {
+            var lifetime = new Date().getTime() - file.atime.getTime();
+            return lifetime > lifespan;
+        }).forEach(function (file) {
+            fs.unlink(file.path);
+        });
     });
+})
+
+// upload handling
+router.post('/upload', upload.single('myData'), function () {
+
+
+    // res.status('200').end(JSON.stringify(req.file));
 });
 
 app.use(router);
