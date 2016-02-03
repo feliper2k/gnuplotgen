@@ -3,7 +3,12 @@ var gnuplot = require('gnuplot');
 var microtime = require('microtime');
 var bodyParser = require('body-parser');
 var express = require('express');
+var temp = require('temp');
+
+var gpPlotBuilder = require('./plot-builder');
 var gpVarParser = require('./gp-variables.js');
+
+
 var multer = require('multer');
 var upload = multer({
     dest: 'uploads/'
@@ -12,10 +17,7 @@ var upload = multer({
 var app = express();
 var router = express.Router();
 
-var plotFile = process.argv[2] || 'simple.1.gnu';
-
 router.use(bodyParser.json());
-router.use(bodyParser.urlencoded({ extended: true }));
 router.use(express.static('.'));
 
 router.use(function timeLog(req, res, next) {
@@ -32,8 +34,17 @@ router
     });
     res.end();
 })
+.options('/eps', function (req, res) {
+    res.set({
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Methods:': 'POST, GET, OPTIONS',
+        'Access-Control-Allow-Headers:': 'Origin, X-Requested-With, Content-Type, Accept'
+    });
+    res.end();
+})
 .post('/plot', function (req, res) {
-    var gnuplotString = req.body.commands;
+    var gnuplotModel = req.body;
+    var gnuplotString = gpPlotBuilder(req.body).render('pngcairo');
 
     res.set({
         'Access-Control-Allow-Origin': '*',
@@ -83,25 +94,24 @@ router
 })
 .post('/eps', function (req, res) {
     res.set({
-        'Content-type': 'application/eps',
-        'Content-disposition': 'attachment; filename=plot.eps'
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Methods:': 'POST, GET, OPTIONS',
+        'Access-Control-Allow-Headers:': 'Origin, X-Requested-With, Content-Type, Accept'
     });
 
-    // clear stale files
-    var lifespan = 60 * 1000;  // 1 minute
-    var tmpPath = __dirname + '/tmp';
+    var gnuplotModel = req.body;
+    var gnuplotString = gpPlotBuilder(req.body).render('epscairo');
 
-    fs.readdir(tmpPath, function (err, files) {
-        files.map(function (fileName) {
-            var filePath = tmpPath + '/' + fileName;
-            var stat = fs.statSync(filePath);
-            stat.path = filePath;
-            return stat;
-        }).filter(function (file) {
-            var lifetime = new Date().getTime() - file.atime.getTime();
-            return lifetime > lifespan;
-        }).forEach(function (file) {
-            fs.unlink(file.path);
+    temp.open({ dir: 'tmp', prefix: 'gnuplot-eps-', suffix: '.eps' }, function(err, info) {
+        if (err) return;
+
+        var tmpStream = fs.createWriteStream('', { fd: info.fd });
+        gnuplot().print(gnuplotString, {end: true}).pipe(tmpStream);
+
+        tmpStream.on('finish', function () {
+            res.send({
+                path: info.path
+            });
         });
     });
 })
