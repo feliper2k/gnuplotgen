@@ -15,7 +15,7 @@ function gpPlotViewController($scope, plotModel, plotRenderer) {
             // console.log('model updated');
             plotRenderer.update(model);
             plotRenderer.render().then(function (success) {
-                vm.imageData = success.data.image;
+                vm.plotData = success.data;
             }, function (err) {
                 console.log(err);
             });

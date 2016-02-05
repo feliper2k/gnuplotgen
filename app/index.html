@@ -9,14 +9,14 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link href='https://fonts.googleapis.com/css?family=Roboto:400,300,700' rel='stylesheet' type='text/css'>
 </head>
-<body>
-    <nav flex ng-include="'partials/menubar.html'">
+<body layout="column">
+    <nav ng-include="'partials/menubar.html'">
 
     </nav>
 
-    <div ng-cloak layout="row" flex>
-        <md-section class="gpg-plot-area" ng-controller="gpPlotViewController as pv" flex>
-            <img src="{{ pv.imageData }}" alt="" class="">
+    <div ng-cloak layout="row" layout-align="center center" flex>
+        <md-section class="gpg-plot-area md-whiteframe-z1" ng-controller="gpPlotViewController as pv">
+            <plot-area ng-model="pv.plotData"></plot-area>
         </md-section>
     </div>
 
