@@ -7,11 +7,11 @@
         </md-input-container>
     </div>
     <div class="row" layout="row">
-        <md-input-container>
+        <md-input-container flex="50">
             <label>Width</label>
             <input type="number" name="plotCanvasW" ng-model="rbm.plot.canvas.width" min="80" max="4096" step="10">
         </md-input-container>
-        <md-input-container>
+        <md-input-container flex="50">
             <label>Height</label>
             <input type="number" name="plotCanvasH" ng-model="rbm.plot.canvas.height" min="80" max="4096" step="10">
         </md-input-container>
@@ -133,7 +133,7 @@
     <div class="row" layout="row">
         <md-input-container flex="70">
             <label>Font face</label>
-            <md-select ng-model="rbm.plot.styles..fontFace" flex>
+            <md-select ng-model="rbm.plot.styles.fontFace" flex>
                 <md-option ng-repeat="(fontName, fontValue) in rbm.plot.style.fontsAvailable" value="{{ fontValue }}" >{{ fontName }}</md-option>
             </md-select>
         </md-input-container>

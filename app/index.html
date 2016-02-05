@@ -13,9 +13,10 @@
     <nav flex ng-include="'partials/menubar.html'">
 
     </nav>
-    <div ng-cloak layout="row" flex>
-        <md-section class="gpg-plot-area" flex>
 
+    <div ng-cloak layout="row" flex>
+        <md-section class="gpg-plot-area" ng-controller="gpPlotViewController as pv" flex>
+            <img src="{{ pv.imageData }}" alt="" class="">
         </md-section>
     </div>
 
