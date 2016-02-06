@@ -1,6 +1,6 @@
 'use strict';
 
-function gpPlotViewController($scope, plotModel, plotRenderer) {
+function gpPlotViewController($scope, $mdToast, plotModel, plotRenderer) {
     'ngInject';
 
     // ViewModel
@@ -17,7 +17,13 @@ function gpPlotViewController($scope, plotModel, plotRenderer) {
             plotRenderer.render().then(function (success) {
                 vm.plotData = success.data;
             }, function (err) {
-                console.log(err);
+                var errorMessage = err.data.error;
+
+                // toast error message
+                $mdToast.show($mdToast.simple()
+                    .theme('accent')
+                    .content(errorMessage)
+                );
             });
         }
     }, true);

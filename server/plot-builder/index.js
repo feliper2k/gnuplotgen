@@ -2,6 +2,9 @@ var _ = require('lodash');
 
 var renderers = {
     canvas: require('./renderers/canvas.js'),
+    area: require('./renderers/area.js'),
+    font: require('./renderers/font.js'),
+    axes: require('./renderers/axes.js'),
     plot: require('./renderers/plot.js')
 };
 

@@ -7,3 +7,9 @@ plot-area {
         position: absolute;
     }
 }
+
+// error toasts
+
+md-toast.md-accent-theme {
+    background: $red; color: #fff;
+}

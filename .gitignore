@@ -29,5 +29,9 @@ templates.js
 #webstorm
 .idea
 
+# Temporary files
+.~lock.*
+*.*~
+
 wip
 tmp

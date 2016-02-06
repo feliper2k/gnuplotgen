@@ -1,11 +1,13 @@
 'use strict';
 
-function PlotArea() {
+function PlotArea(plotModel) {
     'ngInject';
 
     let _ = require('lodash');
 
     function calculateMousePosition(event, status) {
+        let canvas = plotModel.canvas;
+
         let v = status.variables,
         vars = _.mapValues({
             x: {
@@ -26,8 +28,15 @@ function PlotArea() {
             return _.mapValues(dim, window.parseFloat);
         });
 
-        let inBoundsX = event.offsetX > vars.x.pixelMin && event.offsetX < vars.x.pixelMax,
-            inBoundsY = event.offsetY > vars.y.pixelMin && event.offsetY < vars.y.pixelMax;
+        // Y axis is inverse (from bottom to top), hence some magic must be done
+        let tmpMax = vars.y.pixelMax,
+            tmpMin = vars.y.pixelMin;
+
+        vars.y.pixelMin = canvas.height - tmpMax;
+        vars.y.pixelMax = canvas.height - tmpMin;
+
+        let inBoundsX = event.offsetX >= vars.x.pixelMin && event.offsetX <= vars.x.pixelMax,
+            inBoundsY = event.offsetY >= vars.y.pixelMin && event.offsetY <= vars.y.pixelMax;
 
         let position = {
             x: vars.x.dataMin + (event.offsetX-vars.x.pixelMin)/vars.x.pixelRange * vars.x.dataRange,
@@ -56,6 +65,10 @@ function PlotArea() {
             };
 
             let plotElement = element.find('img');
+            plotElement.css({
+                cursor: 'crosshair'
+            });
+            
             plotElement.on('mousemove', function (event) {
                 scope.mousePosition = calculateMousePosition(event, plotData.status);
                 scope.$apply();

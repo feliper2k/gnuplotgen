@@ -1,3 +1,14 @@
 module.exports = function (model, target) {
-    return "plot sin(x)";
+    var t = require('lodash').template,
+        commands = '';
+
+    // quality, i.e. samples and isosamples
+    commands += "set samples <%= samples %>" + "\n";
+
+    // TODO: isosamples
+
+    commands += "plot sin(x)";
+
+
+    return t(commands)(model);
 };

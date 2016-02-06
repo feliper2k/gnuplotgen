@@ -23,7 +23,7 @@
         <md-input-container flex="70">
             <label>Font face</label>
             <md-select ng-model="rbm.plot.style.fontFace" flex>
-                <md-option ng-repeat="(fontName, fontValue) in rbm.plot.style.fontsAvailable" value="{{ fontValue }}" >{{ fontName }}</md-option>
+                <md-option ng-repeat="fontFace in rbm.plot.options.fontFace" value="{{ fontFace }}" >{{ fontFace }}</md-option>
             </md-select>
         </md-input-container>
         <md-input-container flex="30">
@@ -66,11 +66,11 @@
     <div class="row" layout="row">
         <md-input-container flex="33">
             <label>Min {{ rbm.plot.axes.active | uppercase }}</label>
-            <input type="number" name="plotAxisMin" ng-model="rbm.plot.axes[rbm.plot.axes.active].min" flex>
+            <input type="number" name="plotAxisMin" ng-model="rbm.plot.axes[rbm.plot.axes.active].min" flex step="0.1">
         </md-input-container>
         <md-input-container flex="33">
             <label>Max {{ rbm.plot.axes.active | uppercase }}</label>
-            <input type="number" name="plotAxisMax" ng-model="rbm.plot.axes[rbm.plot.axes.active].max" flex>
+            <input type="number" name="plotAxisMax" ng-model="rbm.plot.axes[rbm.plot.axes.active].max" flex step="0.1">
         </md-input-container>
         <md-input-container flex="33">
             <md-checkbox ng-model="rbm.plot.axes[rbm.plot.axes.active].logscale">Log</md-checkbox>

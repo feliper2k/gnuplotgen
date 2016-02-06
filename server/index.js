@@ -81,8 +81,8 @@ router
             responseObject.status.variables = gpVarParser.parse(status);
             res.status(200).send(JSON.stringify(responseObject)).end();
         }, function failure(errMsg) {
-            // error messages are three first lines of the errMsg
-            var failureMsg = errMsg.split(/[\r\n]/).slice(1,4).join("\n");
+            // error messages are several first lines of the errMsg
+            var failureMsg = errMsg.split(/[\r\n]/).slice(0,4).join("\n");
 
             res.status(400).send(JSON.stringify({
                 error: failureMsg

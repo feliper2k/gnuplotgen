@@ -5,7 +5,7 @@ function gpPlotModel() {
         plot;
 
     let options = {
-        fontFace: ['sans', 'sans-serif'],
+        fontFace: ['serif', 'sans', 'Arial', 'Times', 'Georgia', 'Helvetica'],
         lineStyle: '',
         fontSize: [6, 8, 10, 11, 12, 14, 16, 18, 20, 22, 24, 28, 32, 36, 48, 64, 72]
     };
