@@ -1,13 +1,12 @@
 var fs = require('fs');
 var gnuplot = require('gnuplot');
-var microtime = require('microtime');
 var bodyParser = require('body-parser');
 var express = require('express');
 var temp = require('temp');
 
 var gpPlotBuilder = require('./plot-builder');
 var gpVarParser = require('./gp-variables.js');
-
+var gpUtils = require('./utils.js');
 
 var multer = require('multer');
 var upload = multer({
@@ -27,54 +26,34 @@ router.use(function timeLog(req, res, next) {
 
 router
 .options('/plot', function (req, res) {
-    res.set({
-        'Access-Control-Allow-Origin': '*',
-        'Access-Control-Allow-Methods:': 'POST, GET, OPTIONS',
-        'Access-Control-Allow-Headers:': 'Origin, X-Requested-With, Content-Type, Accept'
-    });
+    gpUtils.preflight(res);
     res.end();
 })
 .options('/eps', function (req, res) {
-    res.set({
-        'Access-Control-Allow-Origin': '*',
-        'Access-Control-Allow-Methods:': 'POST, GET, OPTIONS',
-        'Access-Control-Allow-Headers:': 'Origin, X-Requested-With, Content-Type, Accept'
-    });
+    gpUtils.preflight(res);
     res.end();
 })
 .post('/plot', function (req, res) {
     var gnuplotModel = req.body;
     var gnuplotString = gpPlotBuilder(req.body).render('pngcairo');
 
-    res.set({
-        'Access-Control-Allow-Origin': '*',
-        'Access-Control-Allow-Methods:': 'POST, GET, OPTIONS',
-        'Access-Control-Allow-Headers:': 'Origin, X-Requested-With, Content-Type, Accept'
-    });
+    gpUtils.preflight(res);
 
     var gp = gnuplot();
     var gnuplotPrint = gp.print(gnuplotString)
         .println("\nshow variables all", { end: true});
 
-    var mtStart = microtime.now();
     var bufs = [];
 
     gnuplotPrint.on('data', function (chunk) {
         bufs.push(chunk);
     })
     .on('end', function () {
-        var mtDelta = microtime.now() - mtStart;
-        var mtSeconds = (mtDelta/1000000).toFixed(5)+'s';
-        var framesPerSecond = (1000000/mtDelta).toFixed(1);
-
         var imageUrl = 'data:image/png;base64,' + Buffer.concat(bufs).toString('base64');
 
         var responseObject = {
             image: imageUrl,
-            status: {
-                execTime: mtSeconds,
-                fps: framesPerSecond
-            }
+            status: {}
         };
 
         gp.done.then(function success(status) {
@@ -93,11 +72,7 @@ router
     gnuplotPrint.resume();
 })
 .post('/eps', function (req, res) {
-    res.set({
-        'Access-Control-Allow-Origin': '*',
-        'Access-Control-Allow-Methods:': 'POST, GET, OPTIONS',
-        'Access-Control-Allow-Headers:': 'Origin, X-Requested-With, Content-Type, Accept'
-    });
+    gpUtils.preflight(res);
 
     var gnuplotModel = req.body;
     var gnuplotString = gpPlotBuilder(req.body).render('epscairo');
