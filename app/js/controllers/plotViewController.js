@@ -17,9 +17,17 @@ function gpPlotViewController($scope, $mdToast, plotModel, plotRenderer) {
             plotRenderer.render().then(function (success) {
                 vm.plotData = success.data;
             }, function (err) {
-                var errorMessage = err.data.error;
+                let errorMessage;
 
-                // toast error message
+                switch(err.status) {
+                    case 400:        // Bad Request
+                    errorMessage = err.data.error;
+                    break;
+                    case -1:        // server unreachable
+                    errorMessage = `Server at ${err.config.url} is unreachable. Please check your connection settings.`
+                    break;
+                }
+
                 $mdToast.show($mdToast.simple()
                     .theme('accent')
                     .content(errorMessage)

@@ -34,4 +34,5 @@ templates.js
 *.*~
 
 wip
-tmp
+tmp/*
+uploads/*
