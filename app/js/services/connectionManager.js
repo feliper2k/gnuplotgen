@@ -6,16 +6,18 @@ function ConnectionManager(persistentObject) {
     var _ = require('lodash');
 
     let ls = window.localStorage;
+
+    // defaults
     let model = {
-        address: 'localhost',
-        port: '8001'
+        host: 'localhost',
+        port: 8001
     };
 
     let conn = persistentObject.create(model, 'gnuplot.connection');
 
     return _.extend(conn, {
         url: () => {
-            return `http://${conn.address}:${conn.port}/`;
+            return `http://${conn.host}:${conn.port}/`;
         }
     });
 }

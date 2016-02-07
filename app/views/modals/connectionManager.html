@@ -1,0 +1,24 @@
+<md-dialog aria-label="Connection Manager" class="dialog dialog__connection" ng-cloak>
+    <md-toolbar>
+        <div class="md-toolbar-tools">
+            <h2 flex>Setup connection</h2>
+            <md-button class="md-icon-button" ng-click="cm.cancel()">
+                <md-icon aria-label="close">close</md-icon>
+            </md-button>
+        </div>
+    </md-toolbar>
+    <md-dialog-content layout-padding>
+        <p layout-padding>You may specify an alternative drawing server here.<br>
+            Default values are <code>localhost</code> for host and <code>8001</code> for port.</p>
+        <div class="row" layout="row"  layout-padding>
+            <md-input-container flex="70">
+                <label>Host</label>
+                <input type="text" ng-model="cm.connection.host">
+            </md-input-container>
+            <md-input-container flex="30">
+                <label>Port</label>
+                <input type="number" ng-model="cm.connection.port" min="1000" max="65535">
+            </md-input-container>
+        </div>
+    </md-dialog-content>
+</md-dialog>

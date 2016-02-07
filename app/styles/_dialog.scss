@@ -1,23 +1,25 @@
 $decoration-text-color: #333;
 
 md-dialog {
-    min-width: 50%;
+    min-width: 300px;
 
     md-toolbar {
-        background-color: transparent !important;
-        color: $decoration-text-color !important;
+        // background-color: transparent !important;
+        // color: $decoration-text-color !important;
         min-height: inherit !important;
 
         h2 {
-            font-size: 0.8em !important;
+            font-size: 0.7em !important;
+            // font-weight: 700 !important;
             text-align: center;
             text-transform: uppercase;
-            padding-top: 4px;
+            // padding-top: 4px;
+            padding: 6px;
         }
 
-        md-icon {
-            color: $decoration-text-color !important;
-        }
+        // md-icon {
+        //     color: $decoration-text-color !important;
+        // }
     }
 
     .md-toolbar-tools {

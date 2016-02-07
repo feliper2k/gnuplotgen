@@ -14,11 +14,24 @@ function RibbonActionListener($mdDialog, $http, plotRenderer, connectionManager)
                 clickOutsideToClose: true
             })
         },
+
+        'manageConnection': (event) => {
+            $mdDialog.show({
+                controller: 'gpConnectionModal',
+                controllerAs: 'cm',
+                templateUrl: 'modals/connectionManager.html',
+                parent: angular.element(document.body),
+                targetEvent: event,
+                clickOutsideToClose: true
+            })
+        },
+
         'exportScriptSimple': (event) => {
             plotRenderer.exportScript().then(function (success) {
                 window.location = connectionManager.url() + success.data.path;
             });
         },
+
         'exportEPS': (event) => {
             plotRenderer.exportEPS().then(function (success) {
                 window.location = connectionManager.url() + success.data.path;
