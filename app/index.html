@@ -15,12 +15,12 @@
     </div>
 
     <div class="main__container" layout="column" flex ng-show="main.loaded" ng-cloak>
-        <nav ng-include="'partials/menubar.html'">
+        <nav ng-include="'partials/menubar.html'" flex="none">
 
         </nav>
-        <section ng-cloak layout="row" layout-align="center center" flex class="main__scrollView">
-            <md-section class="gpg-plot-area md-whiteframe-z1" ng-controller="gpPlotViewController as pv">
-                <plot-area ng-model="pv.plotData"></plot-area>
+        <section ng-cloak layout="row" class="main__scrollView" flex>
+            <md-section ng-controller="gpPlotViewController as pv">
+                <plot-area ng-model="pv.plotData" class="md-whiteframe-z1" flex></plot-area>
             </md-section>
         </section>
     </div>

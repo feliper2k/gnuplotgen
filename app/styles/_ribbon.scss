@@ -6,15 +6,8 @@ $icon-size-lg: 36px;
     &tabs {
         font-size: 0.9em;
         background-color: #f7f7f7;
-
-        // autohide
-        // & md-tabs-content-wrapper {
-        //     display: none;
-        // }
-        //
-        // &:hover md-tabs-content-wrapper {
-        //     display: block;
-        // }
+        position: relative;
+        z-index: 5;
 
         .md-button:not(.upright) > * {
             display: inline-block;
