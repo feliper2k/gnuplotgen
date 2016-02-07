@@ -32,6 +32,9 @@ function gpPlotViewController($scope, $mdToast, plotModel, plotRenderer) {
                     .theme('accent')
                     .content(errorMessage)
                 );
+            }).finally(function () {
+                // initial loading
+                $scope.main.loaderDeferred.resolve();
             });
         }
     }, true);
