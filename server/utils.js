@@ -14,7 +14,7 @@ function initializeTmpDirs() {
     var tempDir = path.resolve(settings.temp.downloadsDir);
     // check for existence and otherwise initialize temporary dirs
     fs.readdir(tempDir, function (err) {
-        if(err.code === 'ENOENT')
+        if(err && err.code === 'ENOENT')
         fs.mkdir(tempDir, function (err) {
             if(err) console.log('Error initializing temporary downloads directory' + err.message);
         });
