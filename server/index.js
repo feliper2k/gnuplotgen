@@ -7,13 +7,13 @@ var temp = require('temp').track();
 var gpPlotBuilder = require('./plot-builder');
 var gpVarParser = require('./gp-variables.js');
 var gpUtils = require('./utils.js');
+var settings = require('./settings.js');
 
 var multer = require('multer');
 var upload = multer({
-    dest: 'uploads/'
+    dest: settings.temp.uploadsDir
 });
 
-var settings = require('./settings.js');
 
 var app = express();
 var router = express.Router();
@@ -27,6 +27,8 @@ router.use(function options(req, res, next) {
     }
     next();
 });
+
+gpUtils.initializeTmpDirs();
 
 router
 .post('/plot', function (req, res) {
