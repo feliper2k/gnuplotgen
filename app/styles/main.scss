@@ -40,5 +40,9 @@ md-tabs-wrapper md-icon {
 .main__ {
     &scrollView {
         overflow: auto;
+        display: flex;
+        justify-content: center;
+        box-sizing: border-box;
+        position: relative;
     }
 }

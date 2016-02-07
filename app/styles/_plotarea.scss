@@ -1,10 +1,20 @@
 plot-area {
-    position: relative;
+    display: block;
+    margin: 30px;
+    overflow: visible;
+    box-sizing: content-box;
+    line-height: 0px;
 }
 
 .plotarea__ {
-    &tooltip {
-        position: absolute;
+    &status {
+        position: fixed; bottom: 20px;
+        right: 20px;
+        line-height: 100%;
+        background: #f9f9f9;
+    }
+    &status-mouse {
+        padding: 1em;
     }
 }
 
