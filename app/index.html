@@ -13,11 +13,11 @@
     <nav ng-include="'partials/menubar.html'">
 
     </nav>
-
-    <div ng-cloak layout="row" layout-align="center center" flex>
-        <md-section class="gpg-plot-area md-whiteframe-z1" ng-controller="gpPlotViewController as pv">
-            <plot-area ng-model="pv.plotData"></plot-area>
-        </md-section>
+        <section ng-cloak layout="row" layout-align="center center" flex class="main__scrollView">
+            <md-section class="gpg-plot-area md-whiteframe-z1" ng-controller="gpPlotViewController as pv">
+                <plot-area ng-model="pv.plotData"></plot-area>
+            </md-section>
+        </section>
     </div>
 
     <script src="js/main.js"></script>

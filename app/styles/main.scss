@@ -10,12 +10,8 @@
 body {
   font-family: 'Roboto', sans-serif;
   color: $font-color--dark;
-  background-color: #f9f9f9;
   overflow: hidden;
-}
-
-body {
-    background: #eee; line-height: 140%;
+  background: #eee; line-height: 140%;
 }
 
 .md-menu > .md-button {
@@ -39,4 +35,10 @@ pre {
 
 md-tabs-wrapper md-icon {
     color: #fff;
+}
+
+.main__ {
+    &scrollView {
+        overflow: auto;
+    }
 }
