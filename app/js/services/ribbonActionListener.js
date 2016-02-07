@@ -1,6 +1,6 @@
 'use strict';
 
-function RibbonActionListener($mdDialog) {
+function RibbonActionListener($mdDialog, $http, plotRenderer, connectionManager) {
     'ngInject';
 
     let actions = {
@@ -13,6 +13,16 @@ function RibbonActionListener($mdDialog) {
                 targetEvent: event,
                 clickOutsideToClose: true
             })
+        },
+        'exportScriptSimple': (event) => {
+            plotRenderer.exportScript().then(function (success) {
+                window.location = connectionManager.url() + success.data.path;
+            });
+        },
+        'exportEPS': (event) => {
+            plotRenderer.exportEPS().then(function (success) {
+                window.location = connectionManager.url() + success.data.path;
+            });
         }
     };
 

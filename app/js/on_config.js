@@ -20,7 +20,7 @@ function OnConfig($stateProvider, $locationProvider, $urlRouterProvider, $mdThem
   .accentPalette('amber');
 
   $mdThemingProvider.theme('accent')
-  .primaryPalette('amber');
+  .primaryPalette('brown');
 }
 
 export default OnConfig;

@@ -20,7 +20,7 @@
                         </md-button>
                         <md-menu-content>
                             <md-menu-item ng-repeat="menuItem in ribbonItem.menu">
-                                <md-button ng-click="ribbon.action.execute(ribbonItem.action, $event)">
+                                <md-button ng-click="ribbon.action.execute(menuItem.action, $event)">
                                     <md-icon aria-label="{{ menuItem.icon }}" class="material-icons">{{ menuItem.icon }}</md-icon>
                                     <span>{{ menuItem.label }}</span>
                                 </md-button>

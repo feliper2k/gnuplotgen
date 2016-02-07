@@ -55,11 +55,11 @@ let tabsHome = {
         menu: [{
             label: 'Simple',
             icon: 'code',
-            action: 'exportSimple'
+            action: 'exportScriptSimple'
         }, {
             label: 'Embedded Data',
             icon: 'attach_file',
-            action: 'exportEmbedded'
+            action: 'exportScriptEmbedded'
         }]
     }, {
         label: 'Export EPS',

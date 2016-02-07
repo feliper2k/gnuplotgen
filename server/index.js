@@ -2,7 +2,7 @@ var fs = require('fs');
 var gnuplot = require('gnuplot');
 var bodyParser = require('body-parser');
 var express = require('express');
-var temp = require('temp');
+var temp = require('temp').track();
 
 var gpPlotBuilder = require('./plot-builder');
 var gpVarParser = require('./gp-variables.js');
@@ -13,26 +13,22 @@ var upload = multer({
     dest: 'uploads/'
 });
 
+var settings = require('./settings.js');
+
 var app = express();
 var router = express.Router();
 
 router.use(bodyParser.json());
 router.use(express.static('.'));
 
-router.use(function timeLog(req, res, next) {
-    // console.log(req);
+router.use(function options(req, res, next) {
+    if(req.method === 'OPTIONS') {
+        gpUtils.preflight(res);
+    }
     next();
 });
 
 router
-.options('/plot', function (req, res) {
-    gpUtils.preflight(res);
-    res.end();
-})
-.options('/eps', function (req, res) {
-    gpUtils.preflight(res);
-    res.end();
-})
 .post('/plot', function (req, res) {
     var gnuplotModel = req.body;
     var gnuplotString = gpPlotBuilder(req.body).render('pngcairo');
@@ -87,9 +83,41 @@ router
             res.send({
                 path: info.path
             });
+
+            // cleanup after grace period
+            setTimeout(function () {
+                fs.unlink(info.path);
+            }, settings.temp.ttl);
         });
     });
 })
+.post('/script/simple', function (req, res) {
+    gpUtils.preflight(res);
+
+    var scriptString = gpPlotBuilder(req.body).render('epscairo');
+
+    temp.open({ dir: 'tmp', prefix: 'gnuplot-script-', suffix: '.gp' }, function(err, info) {
+        if (err) return;
+
+        fs.write(info.fd, scriptString, function (err, written) {
+            if (!err) {
+                res.send({
+                    path: info.path
+                });
+
+                fs.close(info.fd);
+
+                // cleanup after grace period
+                setTimeout(function () {
+                    fs.unlink(info.path);
+                }, settings.temp.ttl);
+            }
+            else res.send({
+                error: errMsg
+            });
+        });
+    });
+});
 
 // upload handling
 router.post('/upload', upload.single('myData'), function () {
@@ -99,7 +127,7 @@ router.post('/upload', upload.single('myData'), function () {
 });
 
 app.use(router);
-var server = app.listen(8001, function () {
+var server = app.listen(settings.server.port, function () {
     var host = server.address().address;
     var port = server.address().port;
 

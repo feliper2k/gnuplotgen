@@ -1,6 +1,6 @@
 'use strict';
 
-function PlotRenderer($http) {
+function PlotRenderer($http, connectionManager) {
     'ngInject';
 
     let currentModel, currentStatus;
@@ -12,12 +12,32 @@ function PlotRenderer($http) {
     function render() {
         let request = $http({
             method: 'post',
-            url: 'http://localhost:8001/plot',           // TODO: override hardcoded values
+            url: `${connectionManager.url()}plot`,
             data: currentModel
         });
 
         request.then(function (success) {
             currentStatus = success.data.status;
+        });
+
+        return request;
+    }
+
+    function exportEPS() {
+        let request = $http({
+            method: 'post',
+            url: `${connectionManager.url()}eps`,
+            data: currentModel
+        });
+
+        return request;
+    }
+
+    function exportScript() {
+        let request = $http({
+            method: 'post',
+            url: `${connectionManager.url()}script/simple`,
+            data: currentModel
         });
 
         return request;
@@ -30,6 +50,8 @@ function PlotRenderer($http) {
     const service = {
         update,
         render,
+        exportEPS,
+        exportScript,
         status
     };
 
