@@ -5,11 +5,8 @@ function PlotArea(plotModel) {
 
     let _ = require('lodash');
 
-    function calculateMousePosition(event, status) {
-        let canvas = plotModel.canvas;
-
-        let v = status.variables,
-        vars = _.mapValues({
+    function mapVariables(v) {
+        return _.mapValues({
             x: {
                 pixelMin: v.GPVAL_TERM_XMIN,
                 pixelMax: v.GPVAL_TERM_XMAX,
@@ -27,6 +24,11 @@ function PlotArea(plotModel) {
         }, function (dim) {
             return _.mapValues(dim, window.parseFloat);
         });
+    }
+
+    function calculateMousePosition(event, status) {
+        let canvas = plotModel.canvas;
+        let vars = mapVariables(status.variables);
 
         // Y axis is inverse (from bottom to top), hence some magic must be done
         let tmpMax = vars.y.pixelMax,
@@ -46,6 +48,12 @@ function PlotArea(plotModel) {
 
         return position;
     }
+
+    // let dragTool = {
+    //     onDragStart: (event) => {
+    //
+    //     }
+    // }
 
     return {
         restrict: 'E',

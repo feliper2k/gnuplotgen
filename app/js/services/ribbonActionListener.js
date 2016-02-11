@@ -26,6 +26,17 @@ function RibbonActionListener($mdDialog, $http, plotRenderer, connectionManager)
             })
         },
 
+        'plotAppearanceMargins': (event) => {
+            $mdDialog.show({
+                controller: 'gpMarginsModal',
+                controllerAs: 'mm',
+                templateUrl: 'modals/margins.html',
+                parent: angular.element(document.body),
+                targetEvent: event,
+                clickOutsideToClose: true
+            })
+        },
+
         'exportScriptSimple': (event) => {
             plotRenderer.exportScript().then(function (success) {
                 window.location = connectionManager.url() + success.data.path;

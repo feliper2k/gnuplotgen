@@ -6,8 +6,11 @@ function gpPlotViewController($scope, $mdToast, plotModel, plotRenderer) {
     // ViewModel
     const vm = this;
     vm.autoUpdate = true;
+    vm.renderingDone = false;
 
     vm.render = () => {
+        vm.renderingDone = false;
+
         let model = plotModel;
 
         plotRenderer.update(model);
@@ -32,6 +35,7 @@ function gpPlotViewController($scope, $mdToast, plotModel, plotRenderer) {
         }).finally(function () {
             // initial loading
             $scope.main.loaderDeferred.resolve();
+            vm.renderingDone = true;
         });
     }
 

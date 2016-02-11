@@ -1,0 +1,33 @@
+<md-dialog aria-label="Margins" class="dialog dialog__margins" ng-cloak>
+    <md-toolbar>
+        <div class="md-toolbar-tools">
+            <h2 flex>Margins</h2>
+            <md-button class="md-icon-button" ng-click="mm.cancel()">
+                <md-icon aria-label="close">close</md-icon>
+            </md-button>
+        </div>
+    </md-toolbar>
+    <md-dialog-content layout-padding>
+        <div layout="row" layout-padding layout-align="center center">
+            <md-input-container flex="20">
+                <label>Left</label>
+                <input type="number" min="1" max="100" step="1" ng-model="mm.margins.left" id="">
+            </md-input-container>
+            <div layout="column" flex="60" class="center-column">
+                <md-input-container flex="20">
+                    <label>Top</label>
+                    <input type="number" min="1" max="100" step="1" ng-model="mm.margins.top" id="">
+                </md-input-container>
+                <md-icon aria-label="check_box_outline_blank" flex="60">check_box_outline_blank</md-icon>
+                <md-input-container flex="20">
+                    <label>Bottom</label>
+                    <input type="number" min="1" max="100" step="1" ng-model="mm.margins.bottom" id="">
+                </md-input-container>
+            </div>
+            <md-input-container flex="20">
+                <label>Right</label>
+                <input type="number" min="1" max="100" step="1" ng-model="mm.margins.right" id="">
+            </md-input-container>
+        </div>
+    </md-dialog-content>
+</md-dialog>

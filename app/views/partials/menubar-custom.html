@@ -35,16 +35,40 @@
     </div>
     <div class="row" layout="row">
         <md-input-container flex="70">
-            <label>Line styles</label>
-            <md-select ng-model="rbm.plot.style.lineStyle">
-                <md-option ng-repeat="style in rbm.plot.style.lineStylesAvailable" value="{{ style.id }}" >{{ style.label }}</md-option>
-                <md-option value="custom" >Custom...</md-option>
+            <label>Colors</label>
+            <md-select ng-model="rbm.plot.style.colors">
+                <md-option ng-repeat="style in rbm.plot.options.colors" value="{{ style.id }}" >{{ style.label }}</md-option>
             </md-select>
         </md-input-container>
         <md-input-container flex="30">
             <label>Quality</label>
             <input type="number" name="plotStyleSamples" ng-model="rbm.plot.samples" flex>
         </md-input-container>
+    </div>
+</ribbon-item-src>
+
+<ribbon-item-src name="keyPosition">
+    <div layout="column">
+        <md-radio-group ng-model="rbm.plot.style.key.position">
+            <div layout="row" ng-repeat="posy in ['top', 'center', 'bottom']" flex>
+                <md-radio-button ng-repeat="posx in ['left', 'center', 'right']" value="{{ posx }} {{ posy }}" flex class="radio-{{ posx }}-{{ posy }}"></md-radio-button>
+            </div>
+        </md-radio-group>
+    </div>
+</ribbon-item-src>
+
+<ribbon-item-src name="keyAttributes">
+    <div layout="column">
+        <div class="row">
+            <md-input-container>
+                <label>Title</label>
+                <input type="text" ng-model="rbm.plot.style.key.title">
+            </md-input-container>
+        </div>
+        <div layout="row">
+            <md-checkbox ng-model="rbm.plot.style.key.enable" flex="50">Enable</md-checkbox>
+            <md-checkbox ng-model="rbm.plot.style.key.border" flex="50" ng-disabled="!rbm.plot.style.key.enable">Box</md-checkbox>
+        </div>
     </div>
 </ribbon-item-src>
 

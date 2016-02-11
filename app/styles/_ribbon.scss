@@ -109,3 +109,15 @@ $icon-size-lg: 36px;
 .ribbonitem__axesGeneral {
     max-width: 250px;
 }
+
+.ribbonitem__keyPosition {
+    md-radio-button {
+        margin: 6px; text-align: center;
+        width: 16px; height: 16px;
+
+        &.radio-center-center {
+            visibility: hidden;
+            pointer-events: none;
+        }
+    }
+}
