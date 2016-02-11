@@ -51,6 +51,7 @@ function PlotArea(plotModel) {
         restrict: 'E',
         templateUrl: 'directives/plotarea.html',
         require: 'ngModel',
+        scope: true,
         link: (scope, element, attrs, model) => {
             let plotData, imageData, status;
 
@@ -68,11 +69,13 @@ function PlotArea(plotModel) {
             plotElement.css({
                 cursor: 'crosshair'
             });
-            
+
             plotElement.on('mousemove', function (event) {
                 scope.mousePosition = calculateMousePosition(event, plotData.status);
                 scope.$apply();
             });
+
+            scope.plotModel = plotModel;
         }
     };
 }

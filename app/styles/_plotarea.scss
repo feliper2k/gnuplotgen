@@ -16,6 +16,18 @@ plot-area {
     &status-mouse {
         padding: 1em;
     }
+
+    &autoupdate {
+        position: fixed; top: 0px; right: 0px; z-index: 20;
+
+        md-switch {
+            margin: 12px; color: #d4f6e7;
+        }
+
+        md-icon {
+            color: #d4f6e7;
+        }
+    }
 }
 
 // error toasts

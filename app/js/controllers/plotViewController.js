@@ -7,35 +7,40 @@ function gpPlotViewController($scope, $mdToast, plotModel, plotRenderer) {
     const vm = this;
     vm.autoUpdate = true;
 
+    vm.render = () => {
+        let model = plotModel;
+
+        plotRenderer.update(model);
+        plotRenderer.render().then(function (success) {
+            vm.plotData = success.data;
+        }, function (err) {
+            let errorMessage;
+
+            switch(err.status) {
+                case 400:        // Bad Request
+                errorMessage = err.data.error;
+                break;
+                case -1:        // server unreachable
+                errorMessage = `Server at ${err.config.url} is unreachable. Please check your connection settings.`
+                break;
+            }
+
+            $mdToast.show($mdToast.simple()
+                .theme('accent')
+                .content(errorMessage)
+            );
+        }).finally(function () {
+            // initial loading
+            $scope.main.loaderDeferred.resolve();
+        });
+    }
+
     // watch plotModel for mutations
     $scope.$watch(function () {
         return plotModel;
-    }, function (model) {
+    }, function () {
         if (vm.autoUpdate) {
-            // console.log('model updated');
-            plotRenderer.update(model);
-            plotRenderer.render().then(function (success) {
-                vm.plotData = success.data;
-            }, function (err) {
-                let errorMessage;
-
-                switch(err.status) {
-                    case 400:        // Bad Request
-                    errorMessage = err.data.error;
-                    break;
-                    case -1:        // server unreachable
-                    errorMessage = `Server at ${err.config.url} is unreachable. Please check your connection settings.`
-                    break;
-                }
-
-                $mdToast.show($mdToast.simple()
-                    .theme('accent')
-                    .content(errorMessage)
-                );
-            }).finally(function () {
-                // initial loading
-                $scope.main.loaderDeferred.resolve();
-            });
+            vm.render();
         }
     }, true);
 }

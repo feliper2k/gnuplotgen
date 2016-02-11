@@ -1,4 +1,8 @@
 <img alt="" class="">
+<div class="plotarea__autoupdate" layout="row">
+    <md-switch ng-model="pv.autoUpdate">Auto update</md-switch>
+    <md-button class="md-icon-button" ng-if="!pv.autoUpdate" ng-click="pv.render()"><md-icon aria-label="refresh">refresh</md-icon></md-button>
+</div>
 <div class="plotarea__status md-whiteframe-z1">
     <p><span class="plotarea__status-mouse" ng-show="mousePosition.inBounds">{{ mousePosition.x | number:2 }}, {{ mousePosition.y | number:2 }}</span></p>
 </div>
