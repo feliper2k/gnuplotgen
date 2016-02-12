@@ -11,13 +11,24 @@ let tabsPlot = {
         name: 'plotStyle'
     }],
 
+    'Key position': [{
+        type: 'custom',
+        name: 'keyPosition'
+    }],
+
+    'Key attributes': [{
+        type: 'custom',
+        name: 'keyAttributes'
+    }],
+
     'More': [{
         type: 'single',
         label: 'Margins',
         action: 'plotAppearanceMargins',
         icon: 'picture_in_picture',
         upright: true
-    },
+    }]
+    /*,
     {
         type: 'menu',
         label: 'Plot Key',
@@ -33,7 +44,7 @@ let tabsPlot = {
             action: 'plotKeyCustomize',
             icon: 'settings'
         }]
-    }]
+    }*/
 };
 
 export default tabsPlot;

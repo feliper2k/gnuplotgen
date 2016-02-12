@@ -12,9 +12,28 @@ plot-area {
         right: 20px;
         line-height: 100%;
         background: #f9f9f9;
+        overflow: hidden;
+
+        md-icon {
+            float: left;
+            padding: 0.5em;
+        }
     }
     &status-mouse {
         padding: 1em;
+        float: left;
+    }
+
+    &autoupdate {
+        position: fixed; bottom: 15px; left: 15px; z-index: 20;
+
+        md-switch {
+            margin: 12px;
+        }
+
+        md-icon {
+            // color: #d4f6e7;
+        }
     }
 }
 

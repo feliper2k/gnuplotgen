@@ -7,7 +7,7 @@ $icon-size-lg: 36px;
         font-size: 0.9em;
         background-color: #f7f7f7;
         position: relative;
-        z-index: 999;
+        z-index: 5;
 
         .md-button:not(.upright) > * {
             display: inline-block;
@@ -108,4 +108,16 @@ $icon-size-lg: 36px;
 .ribbonitem__plotGeneral,
 .ribbonitem__axesGeneral {
     max-width: 250px;
+}
+
+.ribbonitem__keyPosition {
+    md-radio-button {
+        margin: 6px; text-align: center;
+        width: 16px; height: 16px;
+
+        &.radio-center-center {
+            visibility: hidden;
+            pointer-events: none;
+        }
+    }
 }

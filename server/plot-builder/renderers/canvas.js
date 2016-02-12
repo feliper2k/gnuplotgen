@@ -1,10 +1,9 @@
 module.exports = function (model) {
-    // model.outputType
     var output = '', canvasSize;
-    // var canvasSize = model.canvas.width + "px," + model.canvas.height + "px";
 
-    // TODO/caveat:
-    // epscairo output size is in INCHES, not PIXELS -> maybe plan an optional size adjustment for export?
+    // caveat:
+    // epscairo output size is in INCHES, not PIXELS
+    var dpiAdjustment = 72/100;
 
     output += "set terminal " + model.outputType + " enhanced";
 
@@ -15,11 +14,15 @@ module.exports = function (model) {
             canvasSize = model.canvas.width + "," + model.canvas.height;
             break;
             case 'epscairo':
-            canvasSize = model.canvas.width/100 + "," + model.canvas.height/100;
+            canvasSize = model.canvas.width*dpiAdjustment/100 + "," + model.canvas.height*dpiAdjustment/100;
             break;
         }
 
         output += " size " + canvasSize;
+    }
+
+    if(model.style.colors === 'mono') {
+        output += " mono";
     }
 
     return output;

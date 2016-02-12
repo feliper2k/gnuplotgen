@@ -7,7 +7,12 @@ function gpPlotModel() {
     let options = {
         fontFace: ['serif', 'sans', 'Arial', 'Times', 'Georgia', 'Helvetica'],
         lineStyle: '',
-        fontSize: ['6', '8', '10', '11', '12', '14', '16', '18', '20', '22', '24', '28', '32', '36', '48', '64', '72']
+        fontSize: ['6', '8', '10', '11', '12', '14', '16', '18', '20', '22', '24', '28', '32', '36', '48', '64', '72'],
+        colors: [{
+            id: 'full', label: 'Full color'
+        }, {
+            id: 'mono', label: 'Monochrome'
+        }]
     };
 
     let initPlot = {
@@ -29,15 +34,35 @@ function gpPlotModel() {
             lineStyle: 'subtle',
 
             key: {
-                enable: true
+                enable: true,
+                position: '',
+                title: ''
+            },
+
+            colors: 'full',
+
+            margins: {
+                top: null,
+                left: null,
+                right: null,
+                bottom: null
             }
         },
 
         axes: {
             active: 'x',
-            x: {},
-            y: {},
-            z: {}
+            x: {
+                min: -5,
+                max: 5
+            },
+            y: {
+                min: -5,
+                max: 5
+            },
+            z: {
+                min: -5,
+                max: 5
+            }
         },
 
         samples: 100,

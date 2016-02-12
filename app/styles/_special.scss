@@ -13,3 +13,17 @@
         }
     }
 }
+
+// other special classes
+@keyframes rotate-halfway {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(180deg);
+    }
+}
+
+.icon-rotating {
+    animation: rotate-halfway 0.5s ease-in-out infinite;
+}

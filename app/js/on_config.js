@@ -17,7 +17,7 @@ function OnConfig($stateProvider, $locationProvider, $urlRouterProvider, $mdThem
 
   $mdThemingProvider.theme('default')
   .primaryPalette('teal')
-  .accentPalette('amber');
+  .accentPalette('blue');
 
   $mdThemingProvider.theme('accent')
   .primaryPalette('brown');
