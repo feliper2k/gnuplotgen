@@ -1,6 +1,7 @@
 var settings = require('./settings');
 var fs = require('fs');
 var path = require('path');
+var chalk = require('chalk');
 
 function preflight(resStream) {
     resStream.set({
@@ -21,7 +22,27 @@ function initializeTmpDirs() {
     });
 }
 
+
+
+function log(type, msg) {
+    var logColor = {
+        'warn': 'yellow',
+        'error': 'red',
+        'ok': 'green'
+    }[type];
+
+    function writeToConsole(msg, rest) {
+        var argsArray = Array.apply(null, arguments);
+        argsArray.slice(2);
+        argsArray.unshift('%s - ' + chalk[logColor](msg), new Date().toUTCString());
+        console.log.apply(console, argsArray);
+    }
+
+    writeToConsole(arguments);
+}
+
 module.exports = {
     preflight: preflight,
     initializeTmpDirs: initializeTmpDirs
+    // log: log
 };

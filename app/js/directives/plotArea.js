@@ -1,17 +1,22 @@
 'use strict';
 
-function PlotArea(plotModel) {
+function PlotArea(plotModel, $rootScope) {
     'ngInject';
 
-    let _ = require('lodash');
+    let _ = require('lodash'),
+        Hammer = require('hammerjs'),
+        $ = require('jquery');
 
-    function mapVariables(v) {
-        return _.mapValues({
+    function mapVariables(vars) {
+        let v = _.mapValues(vars, parseFloat);
+
+        return {
             x: {
                 pixelMin: v.GPVAL_TERM_XMIN,
                 pixelMax: v.GPVAL_TERM_XMAX,
                 pixelRange: v.GPVAL_TERM_XMAX-v.GPVAL_TERM_XMIN,
                 dataMin: v.GPVAL_X_MIN,
+                dataMax: v.GPVAL_X_MAX,
                 dataRange: v.GPVAL_X_MAX-v.GPVAL_X_MIN
             },
             y: {
@@ -19,11 +24,10 @@ function PlotArea(plotModel) {
                 pixelMax: v.GPVAL_TERM_YMAX,
                 pixelRange: v.GPVAL_TERM_YMAX-v.GPVAL_TERM_YMIN,
                 dataMin: v.GPVAL_Y_MIN,
+                dataMax: v.GPVAL_Y_MAX,
                 dataRange: v.GPVAL_Y_MAX-v.GPVAL_Y_MIN
             }
-        }, function (dim) {
-            return _.mapValues(dim, window.parseFloat);
-        });
+        };
     }
 
     function calculateMousePosition(event, status) {
@@ -49,11 +53,129 @@ function PlotArea(plotModel) {
         return position;
     }
 
-    let dragTool = {
-        startingPosition: {},
-        onDragStart: (event) => {
+    function link(scope, element, attrs, model) {
+        let plotData, imageData, status;
 
+        let dragTool = {
+            panstart: (event) => {
+                dragTool.savedCoords = mapVariables(status.variables);
+
+                let scrIndicator = $('<canvas></canvas>');
+                dragTool.screenIndicator = scrIndicator;
+
+                scrIndicator.attr('width', $(window).width());
+                scrIndicator.attr('height', $(window).height());
+                scrIndicator.css({
+                    position: 'fixed',
+                    top: '0px',
+                    left: '0px',
+                    pointerEvents: 'none'
+                });
+
+                $('body').append(scrIndicator);
+            },
+            panmove: (event) => {
+                let canvas = dragTool.screenIndicator.get(0);
+                let ctx = canvas.getContext('2d');
+                let pointer = event.pointers[0];
+
+                let origin = {
+                    x: pointer.pageX-event.deltaX,
+                    y: pointer.pageY-event.deltaY
+                };
+
+                let rotation = event.angle*Math.PI/180;
+
+                // ctx.save();
+                ctx.setTransform(1,0,0,1,0,0);
+
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                ctx.beginPath();
+                ctx.translate(origin.x, origin.y);
+                ctx.rotate(rotation);
+                ctx.moveTo(0,0);
+                ctx.lineTo(event.distance, 0);
+
+                // draw arrowhead
+                ctx.lineTo(event.distance - 12, -8);
+                ctx.moveTo(event.distance - 12, 8);
+                ctx.lineTo(event.distance, 0);
+
+                ctx.stroke();
+                ctx.closePath();
+
+                // reset transform and apply rotation
+                // ctx.setTransform(1, 1, 0, 0, 0, 0);
+                // ctx.restore();
+            },
+            panend: (event) => {
+                let s = dragTool.savedCoords;
+                let deltas = {
+                    x: event.deltaX/s.x.pixelRange*s.x.dataRange,
+                    y: event.deltaY/s.y.pixelRange*s.y.dataRange
+                };
+
+                let round = (number, places) => {
+                    return parseFloat(number.toFixed(places));
+                }
+
+                // console.log(dragTool.savedCoords);
+                plotModel.axes.x.min = round(-deltas.x + s.x.dataMin, 3);
+                plotModel.axes.x.max = round(-deltas.x + s.x.dataMax, 3);
+                plotModel.axes.y.min = round(deltas.y + s.y.dataMin, 3);
+                plotModel.axes.y.max = round(deltas.y + s.y.dataMax, 3);
+                scope.$apply();
+
+                dragTool.screenIndicator.remove();
+            },
+
+            attachEvents: (element, status) => {
+                // element.on('dragstart', function (event) {
+                //     event.preventDefault();
+                // });
+
+                let mc = new Hammer.Manager(element, {
+                    recognizers: [[Hammer.Pan, { direction: Hammer.DIRECTION_ALL }]]
+                });
+
+                ['panstart','panmove','panend'].forEach((fn) => {
+                    mc.on(fn, dragTool[fn]);
+                });
+            }
         }
+
+        model.$render = () => {
+            if(model.$modelValue) {
+                plotData = model.$modelValue;
+                imageData = plotData.image;
+                status = plotData.status;
+
+                element.find('img').attr('src', imageData);
+                scope.status = status;
+            }
+        };
+
+        let plotElement = element;
+        plotElement.css({
+            cursor: 'crosshair'
+        });
+
+        plotElement.find('img').css({
+            pointerEvents: 'none'
+        });
+
+        plotElement.on('mousemove', function (event) {
+            scope.mousePosition = calculateMousePosition(event, plotData.status);
+            scope.$apply();
+        });
+
+        scope.plotModel = plotModel;
+
+        // tools
+        dragTool.attachEvents(plotElement[0]);
+
+        // keyboard controls
+
     }
 
     return {
@@ -61,32 +183,7 @@ function PlotArea(plotModel) {
         templateUrl: 'directives/plotarea.html',
         require: 'ngModel',
         scope: true,
-        link: (scope, element, attrs, model) => {
-            let plotData, imageData, status;
-
-            model.$render = () => {
-                if(model.$modelValue) {
-                    plotData = model.$modelValue;
-                    imageData = plotData.image;
-                    status = plotData.status;
-
-                    element.find('img').attr('src', imageData);
-                }
-            };
-
-            let plotElement = element.find('img');
-            plotElement.css({
-                cursor: 'crosshair'
-            });
-
-            plotElement.on('mousemove', function (event) {
-                scope.mousePosition = calculateMousePosition(event, plotData.status);
-                scope.$apply();
-            });
-
-            scope.plotModel = plotModel;
-            scope.tools.drag = dragTool;
-        }
+        link
     };
 }
 

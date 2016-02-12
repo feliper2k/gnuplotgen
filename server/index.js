@@ -3,6 +3,7 @@ var gnuplot = require('gnuplot');
 var bodyParser = require('body-parser');
 var express = require('express');
 var temp = require('temp').track();
+var chalk = require('chalk');
 
 var gpPlotBuilder = require('./plot-builder');
 var gpVarParser = require('./gp-variables.js');
@@ -54,6 +55,8 @@ router
             status: {}
         };
 
+        console.log('%s - Image rendered successfully', new Date().toUTCString());
+
         gp.done.then(function success(status) {
             responseObject.status.variables = gpVarParser.parse(status);
             res.status(200).send(JSON.stringify(responseObject)).end();
@@ -64,6 +67,8 @@ router
             res.status(400).send(JSON.stringify({
                 error: failureMsg
             })).end();
+
+            console.log(chalk.red('Rendering error: ' + failureMsg));
         });
     });
 
@@ -76,7 +81,10 @@ router
     var gnuplotString = gpPlotBuilder(req.body).render('epscairo');
 
     temp.open({ dir: 'tmp', prefix: 'gnuplot-eps-', suffix: '.eps' }, function(err, info) {
-        if (err) return;
+        if (err) {
+            console.log(chalk.red('I/O error: ' + err));
+            return;
+        }
 
         var tmpStream = fs.createWriteStream('', { fd: info.fd });
         gnuplot().print(gnuplotString, {end: true}).pipe(tmpStream);
@@ -99,7 +107,10 @@ router
     var scriptString = gpPlotBuilder(req.body).render('epscairo');
 
     temp.open({ dir: 'tmp', prefix: 'gnuplot-script-', suffix: '.gp' }, function(err, info) {
-        if (err) return;
+        if (err) {
+            console.log(chalk.red('I/O error: ' + err));
+            return;
+        }
 
         fs.write(info.fd, scriptString, function (err, written) {
             if (!err) {
@@ -114,9 +125,13 @@ router
                     fs.unlink(info.path);
                 }, settings.temp.ttl);
             }
-            else res.send({
-                error: errMsg
-            });
+            else {
+                res.send({
+                    error: err
+                });
+
+                console.log(chalk.red('Gnuplot error: ' + err));
+            }
         });
     });
 });
@@ -133,5 +148,5 @@ var server = app.listen(settings.server.port, function () {
     var host = server.address().address;
     var port = server.address().port;
 
-    console.log('Example app listening at http://%s:%s', host, port);
+    console.log(chalk.green('Gnuplot server listening at ') +  'http://%s:%s', host, port);
 });

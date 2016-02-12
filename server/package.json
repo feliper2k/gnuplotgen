@@ -9,6 +9,7 @@
   "license": "ISC",
   "dependencies": {
     "body-parser": "^1.14.2",
+    "chalk": "^1.1.1",
     "comandante": "github:feliper2k/comandante",
     "express": "^4.13.4",
     "gnuplot": "^0.3.1",
