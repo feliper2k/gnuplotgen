@@ -49,8 +49,14 @@ md-dialog {
 .dialog__margins {
     md-dialog-content {
         width: 300px;
-        // height: 300px;
         margin: 50px;
+        overflow: hidden;
+    }
+
+    md-input-container:after {
+        content: '%'; display: block;
+        position: absolute; left: 100%; bottom: 28px;
+        margin-left: 5px;
     }
 
     .center-column {

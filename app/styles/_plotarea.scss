@@ -41,4 +41,18 @@ plot-area {
 
 md-toast.md-accent-theme {
     background: $red; color: #fff;
+
+    // span {
+    //     white-space: nowrap;
+    // }
+}
+
+.plotarea__renderr {
+    position: absolute;  top: 50%;
+
+    md-icon {
+        font-size: 96px; width: 96px; height: 96px;
+        color: #999; user-select: none;
+        transform: translate(-50%, -50%);
+    }
 }

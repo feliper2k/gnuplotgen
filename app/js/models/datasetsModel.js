@@ -1,9 +1,8 @@
 'use strict';
 
 function gpDatasetsModel() {
-
-
     const datasets = [];
+    let _ = require('lodash');
 
     function createDataset(type, label, data) {
         datasets.push({
@@ -19,6 +18,7 @@ function gpDatasetsModel() {
     return {
         'get': (index) => datasets[index],
         'getCollection': () => datasets,
+        'getActive': () => _.filter(datasets, (ds) => ds.active),
         'create': createDataset,
         'delete': deleteDataset
     };

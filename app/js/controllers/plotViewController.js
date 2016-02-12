@@ -16,6 +16,7 @@ function gpPlotViewController($scope, $mdToast, plotModel, plotRenderer) {
         plotRenderer.update(model);
         plotRenderer.render().then(function (success) {
             vm.plotData = success.data;
+            vm.renderingError = null;
         }, function (err) {
             let errorMessage;
 
@@ -32,6 +33,8 @@ function gpPlotViewController($scope, $mdToast, plotModel, plotRenderer) {
                 .theme('accent')
                 .content(errorMessage)
             );
+
+            vm.renderingError = err.data.error;
         }).finally(function () {
             // initial loading
             $scope.main.loaderDeferred.resolve();

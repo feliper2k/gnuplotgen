@@ -16,7 +16,7 @@ function initializeTmpDirs() {
     fs.readdir(tempDir, function (err) {
         if(err && err.code === 'ENOENT')
         fs.mkdir(tempDir, function (err) {
-            if(err) console.log('Error initializing temporary downloads directory' + err.message);
+            if(err) console.log('Error initializing temporary downloads directory: ' + err.message);
         });
     });
 }
