@@ -49,11 +49,12 @@ function PlotArea(plotModel) {
         return position;
     }
 
-    // let dragTool = {
-    //     onDragStart: (event) => {
-    //
-    //     }
-    // }
+    let dragTool = {
+        startingPosition: {},
+        onDragStart: (event) => {
+
+        }
+    }
 
     return {
         restrict: 'E',
@@ -84,6 +85,7 @@ function PlotArea(plotModel) {
             });
 
             scope.plotModel = plotModel;
+            scope.tools.drag = dragTool;
         }
     };
 }

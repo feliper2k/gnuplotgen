@@ -11,14 +11,14 @@ function gpDatasetsModel() {
     }
 
     function deleteDataset(index) {
-        // TODO: usuwanie danych z dysku za pomocą żądań http, zwracanie promisa
+        // TODO: usuwanie danych z dysku za pomocą żądań http, zwracanie promisa, etc.
         return datasets.splice(index, 1);
     }
 
     return {
         'get': (index) => datasets[index],
         'getCollection': () => datasets,
-        'getActive': () => _.filter(datasets, (ds) => ds.active),
+        'getActive': () => _.filter(datasets, (ds) => !ds.disabled),
         'create': createDataset,
         'delete': deleteDataset
     };

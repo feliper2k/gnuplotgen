@@ -16,7 +16,6 @@ import './models';
 
 // create and bootstrap application
 const requires = [
-  'ui.router',
   'ngMaterial',
   'ngAria',
   'ngAnimate',
