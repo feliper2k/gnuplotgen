@@ -11,7 +11,7 @@ let tabs = {
         name: 'axesGeneral'
     }],
 
-    'Markers': [{
+    'Tics': [{
         type: 'custom',
         name: 'axesMarkers'
     }]

@@ -73,7 +73,12 @@ $icon-size-lg: 36px;
         }
 
         md-input-container {
-            padding-bottom: 10px;
+            padding-bottom: 5px;
+
+            md-checkbox {
+                margin-top: 24px;
+                margin-bottom: 0px;
+            }
         }
 
         &:after {

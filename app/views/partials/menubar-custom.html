@@ -81,10 +81,13 @@
 </ribbon-item-src>
 
 <ribbon-item-src name="axesGeneral">
-    <div class="row">
-        <md-input-container>
+    <div class="row" layout="row">
+        <md-input-container flex="66">
             <label>Label</label>
             <input type="text" name="plotAxisLabel" ng-model="rbm.plot.axes[rbm.plot.axes.active].label" flex>
+        </md-input-container>
+        <md-input-container flex="33">
+            <md-checkbox ng-model="rbm.plot.axes[rbm.plot.axes.active].zeroaxis">Zeroaxis</md-checkbox>
         </md-input-container>
     </div>
     <div class="row" layout="row">
@@ -96,22 +99,37 @@
             <label>Max {{ rbm.plot.axes.active | uppercase }}</label>
             <input type="number" name="plotAxisMax" ng-model="rbm.plot.axes[rbm.plot.axes.active].max" flex step="0.1">
         </md-input-container>
-        <md-input-container flex="33">
+        <md-input-container flex="33" layout="column">
             <md-checkbox ng-model="rbm.plot.axes[rbm.plot.axes.active].logscale">Log</md-checkbox>
         </md-input-container>
     </div>
 </ribbon-item-src>
 
 <ribbon-item-src name="axesMarkers">
-    <div class="row">
-        <md-input-container>
-            <label>Tics</label>
-            <input type="text" name="plotAxisTics" ng-model="rbm.plot.axes[rbm.plot.axes.active].tics" flex>
+    <div class="row" layout="row">
+        <md-input-container flex="70">
+            <label>Font face</label>
+            <md-select ng-model="rbm.plot.style.tics.fontFace" flex>
+                <md-option ng-repeat="fontFace in rbm.plot.options.fontFace" value="{{ fontFace }}" >{{ fontFace }}</md-option>
+            </md-select>
+        </md-input-container>
+        <md-input-container flex="30">
+            <label>Size</label>
+            <md-select ng-model="rbm.plot.style.tics.fontSize" flex>
+                <md-option ng-repeat="size in rbm.plot.options.fontSize" value="{{ size }}" >{{ size }}</md-option>
+            </md-select>
         </md-input-container>
     </div>
     <div class="row" layout="row">
-        <md-input-container flex="100">
-            <md-checkbox ng-model="rbm.plot.axes[rbm.plot.axes.active].zeroaxis">Zero axis</md-checkbox>
+        <md-input-container flex="50">
+            <label>Position</label>
+            <md-select ng-model="rbm.plot.style.tics.position" flex>
+                <md-option value="axis">Axis</md-option>
+                <md-option value="border">Border</md-option>
+            </md-select>
+        </md-input-container>
+        <md-input-container flex="50">
+            <md-checkbox ng-model="rbm.plot.style.tics.mirror">Mirrored</md-checkbox>
         </md-input-container>
     </div>
 </ribbon-item-src>

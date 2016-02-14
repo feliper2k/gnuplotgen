@@ -25,7 +25,7 @@ module.exports = function (model) {
 
         // boolean values
         if(escapedModel.zeroaxis) {
-            template += 'set <%= axis %>zeroaxis' + "\n";
+            template += 'set <%= axis %>zeroaxis lt 1 lc rgb "black"' + "\n";
         }
         if(escapedModel.logscale) {
             template += 'set logscale <%= axis %>' + "\n";
@@ -33,6 +33,20 @@ module.exports = function (model) {
 
         result += t(template)(escapedModel);
     });
+
+    // tics
+    var mirrored = model.style.tics.mirror ? 'mirror' : 'nomirror';
+    template = 'set tics <%= position %> ' + mirrored;
+
+    if(model.style.tics.fontFace && model.style.tics.fontSize)
+    template += ' font "<%= fontFace %>,<%= fontSize %>"';
+
+    template += "\nunset x2tics\nunset y2tics\nunset cbtics\n";
+
+    var escapedModel = _.mapValues(model.style.tics, function (value) {
+        return typeof value === 'string' ? escape(value) : value;
+    });
+    result += t(template)(escapedModel) + "\n";
 
     return result;
 };

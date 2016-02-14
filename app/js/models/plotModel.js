@@ -46,6 +46,11 @@ function gpPlotModel() {
                 left: null,
                 right: null,
                 bottom: null
+            },
+
+            tics: {
+                position: 'border',
+                mirror: true
             }
         },
 
