@@ -8,6 +8,17 @@ function gpDatasetsManager($mdDialog, datasetsModel) {
 
     this.datasets = datasetsModel;
 
+    this.addNew = function () {
+        $mdDialog.show({
+            controller: 'gpDatasetsWizard',
+            controllerAs: 'dw',
+            templateUrl: 'modals/newDataset.html',
+            parent: angular.element(document.body),
+            targetEvent: event,
+            clickOutsideToClose: true
+        });
+    };
+
     return this;
 }
 

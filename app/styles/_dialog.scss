@@ -26,6 +26,33 @@ md-dialog {
         height: 36px !important;
         padding: 8px !important;
     }
+
+    md-dialog-actions {
+        order: 999;
+        border-top: solid 1px #eee;
+    }
+}
+
+.dialog__datawizard {
+    md-content {
+        width: 600px;
+        overflow: hidden;
+    }
+
+    .row + .row {
+        margin-top: -20px;
+    }
+    //
+    // md-input-container[data-prefix]::before {
+    //     content: attr(data-prefix);
+    //     font-family: serif;
+    //     font-style: italic;
+    // }
+
+    .data-preview {
+        overflow: auto;
+        max-height: 300px;
+    }
 }
 
 .dialog__datasets {

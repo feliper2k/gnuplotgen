@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Node Formless File Upload</title>
+</head>
+<body>
+    <div class="form-container">
+        <input type="file" value="" id="myData" name="myData">
+        <input type="submit" value="Wyślej" id="submitButton">
+    </div>
+    <script src="https://code.jquery.com/jquery-1.12.0.min.js" charset="utf-8"></script>
+    <script type="text/javascript">
+        var mybtn = $('#submitButton');
+        var myDataFileInput = $('#myData');
+
+        mybtn.on('click', function (event) {
+            var myFormData = new FormData();
+            myFormData.append('myData', myDataFileInput[0].files[0]);
+
+            jQuery.ajax({
+                url: '/upload',
+                type: 'POST',
+                // cache: false,
+                contentType: false,
+                processData: false,
+                data: myFormData,
+                dataType: 'json'
+            }).then(function (success) {
+                console.log(success);
+            });
+        })
+    </script>
+</body>
+</html>

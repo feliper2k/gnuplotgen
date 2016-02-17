@@ -19,6 +19,9 @@ function gpDatasetsModel() {
         'get': (index) => datasets[index],
         'getCollection': () => datasets,
         'getActive': () => _.filter(datasets, (ds) => !ds.disabled),
+        'toggle': (n) => {
+            datasets[n].disabled = !datasets[n].disabled;
+        },
         'create': createDataset,
         'delete': deleteDataset
     };

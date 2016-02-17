@@ -20,6 +20,9 @@ var app = express();
 var router = express.Router();
 
 router.use(bodyParser.json());
+// router.use(bodyParser.raw({
+//     type: 'text/plain'
+// }));
 router.use(express.static('.'));
 
 router.use(function options(req, res, next) {
@@ -137,11 +140,37 @@ router
 });
 
 // upload handling
-router.post('/upload', upload.single('myData'), function () {
+router.post('/upload', upload.single('plotData'), function (req, res, next) {
+    gpUtils.preflight(res);
 
-
-    // res.status('200').end(JSON.stringify(req.file));
+    gpUtils.validateDatafile(req.file).then(function success(fileMeta) {
+        res.status(200).send(fileMeta).end();
+    }, function failure(reason) {
+        res.status(400).send({
+            error: reason
+        }).end();
+    });
 });
+
+// cleanup
+router.delete('/upload/:id', function (req, res, next) {
+    gpUtils.preflight(res);
+
+    var filePath = settings.temp.uploadsDir + '/' + req.params.id;
+
+    fs.unlink(filePath, function (err) {
+        if(err) {
+            res.status(404).send({
+                error: 'Error: upload not found'
+            }).end();
+
+            return;
+        }
+
+        res.status(200).end();
+    });
+});
+
 
 app.use(router);
 var server = app.listen(settings.server.port, function () {

@@ -25,7 +25,7 @@ module.exports = function (model) {
 
         // boolean values
         if(escapedModel.zeroaxis) {
-            template += 'set <%= axis %>zeroaxis lt 1 lc rgb "black"' + "\n";
+            template += 'set <%= axis %>zeroaxis lt 1 lc rgb "gray"' + "\n";
         }
         if(escapedModel.logscale) {
             template += 'set logscale <%= axis %>' + "\n";
@@ -38,7 +38,15 @@ module.exports = function (model) {
     var mirrored = model.style.tics.mirror ? 'mirror' : 'nomirror';
     template = 'set tics <%= position %> ' + mirrored;
 
-    if(model.style.tics.fontFace && model.style.tics.fontSize)
+    // if(model.style.tics.fontFace && model.style.tics.fontSize)
+
+    if(!model.style.tics.fontFace) {
+        model.style.tics.fontFace = model.style.fontFace;
+    }
+    if(!model.style.tics.fontSize) {
+        model.style.tics.fontSize = model.style.fontSize;
+    }
+
     template += ' font "<%= fontFace %>,<%= fontSize %>"';
 
     template += "\nunset x2tics\nunset y2tics\nunset cbtics\n";

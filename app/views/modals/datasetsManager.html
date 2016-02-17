@@ -42,7 +42,7 @@
                 </md-menu>
             </md-list-item>
             <md-list-item ng-if="!dm.datasets.getCollection().length" layout-align="center">
-                <md-button class="special__addbutton md-no-ripple" layout="column">
+                <md-button class="special__addbutton md-no-ripple" layout="column" ng-click="dm.addNew()">
                     <md-icon aria-label="add_circle_outline">add_circle_outline</md-icon>
                     <p class="md-grid-text">Add new dataset</p>
                 </md-button>

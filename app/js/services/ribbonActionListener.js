@@ -4,6 +4,17 @@ function RibbonActionListener($mdDialog, $http, plotRenderer, connectionManager)
     'ngInject';
 
     let actions = {
+        'newDataset': (event) => {
+            $mdDialog.show({
+                controller: 'gpDatasetsWizard',
+                controllerAs: 'dw',
+                templateUrl: 'modals/newDataset.html',
+                parent: angular.element(document.body),
+                targetEvent: event,
+                clickOutsideToClose: true
+            })
+        },
+
         'manageDatasets': (event) => {
             $mdDialog.show({
                 controller: 'gpDatasetsManager',
