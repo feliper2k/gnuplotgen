@@ -35,6 +35,34 @@ plot-area {
             // color: #d4f6e7;
         }
     }
+
+    &message {
+        color: #777;
+        text-align: center;
+
+        h2 {
+            font-size: 1.5em;
+        }
+
+        p {
+            margin-top: 20px;
+        }
+
+        md-icon {
+            font-size: 96px;
+            width: 96px; height: 96px;
+            color: inherit;
+        }
+
+    }
+
+    &placeholder {
+        position: absolute;
+        top: 120px;
+        left: 50%;
+        transform: translateX(-50%);
+        max-width: 400px;
+    }
 }
 
 // error toasts

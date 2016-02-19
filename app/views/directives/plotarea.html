@@ -1,4 +1,14 @@
-<img alt="" class="">
+<img alt="" id="plotview">
+<div class="plotarea__placeholder plotarea__message" ng-show="pv.noDatasetsDefined()">
+    <md-icon aria-label="data_usage">data_usage</md-icon>
+    <h2>No datasets defined</h2>
+    <p>Perhaps add one using <strong>New dataset</strong> button?</p>
+</div>
+<div class="plotarea__placeholder plotarea__message" ng-show="pv.noDatasetsVisible()">
+    <md-icon aria-label="visibility_off">visibility_off</md-icon>
+    <h2>No datasets visible</h2>
+    <p>Please set some to visible using <strong>Styles</strong> tab.</p>
+</div>
 <div class="plotarea__autoupdate" layout="row">
     <md-switch ng-model="pv.autoUpdate">Auto update</md-switch>
     <md-button class="md-icon-button md-raised" ng-if="!pv.autoUpdate" ng-click="pv.render()"><md-icon aria-label="refresh">refresh</md-icon></md-button>

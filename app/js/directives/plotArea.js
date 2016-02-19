@@ -1,6 +1,6 @@
 'use strict';
 
-function PlotArea(plotModel, $rootScope) {
+function PlotArea(plotModel, datasetsModel, $rootScope) {
     'ngInject';
 
     let _ = require('lodash'),
@@ -55,6 +55,7 @@ function PlotArea(plotModel, $rootScope) {
 
     function link(scope, element, attrs, model) {
         let plotData, imageData, status;
+        let plotView = element.find('img');
 
         let dragTool = {
             panstart: (event) => {
@@ -150,32 +151,28 @@ function PlotArea(plotModel, $rootScope) {
                 imageData = plotData.image;
                 status = plotData.status;
 
-                element.find('img').attr('src', imageData);
+                plotView.attr('src', imageData);
                 scope.status = status;
             }
         };
 
-        let plotElement = element;
-        plotElement.css({
+        plotView.css({
+            pointerEvents: 'none',
             cursor: 'crosshair'
         });
 
-        plotElement.find('img').css({
-            pointerEvents: 'none'
-        });
-
-        plotElement.on('mousemove', function (event) {
+        element.on('mousemove', function (event) {
             scope.mousePosition = calculateMousePosition(event, plotData.status);
             scope.$apply();
         });
 
         scope.plotModel = plotModel;
+        scope.datasetManager = datasetsModel;
 
         // tools
-        dragTool.attachEvents(plotElement[0]);
+        dragTool.attachEvents(element[0]);
 
         // keyboard controls
-
     }
 
     return {

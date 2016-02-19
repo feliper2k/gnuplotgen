@@ -1,6 +1,6 @@
 'use strict';
 
-function gpPlotViewController($scope, $mdToast, plotModel, plotRenderer) {
+function gpPlotViewController($scope, $mdToast, plotModel, datasetsModel, plotRenderer) {
     'ngInject';
 
     // ViewModel
@@ -50,6 +50,14 @@ function gpPlotViewController($scope, $mdToast, plotModel, plotRenderer) {
             vm.render();
         }
     }, true);
+
+    // useful data
+    vm.noDatasetsDefined = () => {
+        return datasetsModel.getCollection().length === 0;
+    };
+    vm.noDatasetsVisible = () => {
+        return datasetsModel.getCollection().length > 0 && datasetsModel.getActive().length === 0;
+    }
 }
 
 export default {

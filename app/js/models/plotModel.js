@@ -1,6 +1,8 @@
 'use strict';
 
-function gpPlotModel() {
+function gpPlotModel(datasetsModel) {
+    'ngInject';
+
     let angular = require('angular'),
         plot;
 
@@ -76,17 +78,19 @@ function gpPlotModel() {
             plot = initPlot;
         },
 
-        datasets: [],
+        get datasets() {
+            return datasetsModel.getActive();
+        },
+        // datasets: [],
 
         plotStyles: [{
-            name: 'Style 1',
             plotWith: 'lines',
             lineColor: '#990000',
             lineWidth: 2,
             dashType: 0,
-            pointType: 0
+            pointType: 0,
+            pointSize: 1
         }],
-        plotStyleActive: 0,
 
         options: options
     };

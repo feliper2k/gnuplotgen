@@ -105,12 +105,16 @@ function gpDatasetsWizard($scope, $http, $mdDialog, datasetsModel, connectionMan
 
         switch(nd.datasetType) {
             case 'function':
-            datasetsModel.create(nd.functionType, nd.description, nd.formulas);
+            datasetsModel.create(nd.functionType, nd.description, {
+                formulas: nd.formulas,
+                functionType: nd.functionType
+            });
             break;
             case 'file':
             if(vm.preview.content.length) {
                 datasetsModel.create('file', vm.preview.originalName, {
                     filename: vm.preview.fileName,
+                    title: vm.preview.originalName,
                     columns: columns
                 });
             }

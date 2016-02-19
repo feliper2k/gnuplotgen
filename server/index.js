@@ -51,7 +51,12 @@ router
         bufs.push(chunk);
     })
     .on('end', function () {
-        var imageUrl = 'data:image/png;base64,' + Buffer.concat(bufs).toString('base64');
+        var imageUrl = "";
+        var imageData = Buffer.concat(bufs).toString('base64');
+
+        if(imageData) {
+            imageUrl = 'data:image/png;base64,' + Buffer.concat(bufs).toString('base64');
+        }
 
         var responseObject = {
             image: imageUrl,

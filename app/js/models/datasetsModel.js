@@ -13,17 +13,19 @@ function gpDatasetsModel($http, connectionManager) {
     }
 
     function deleteDataset(index) {
-        let removedDataset = datasets[index];
-        let removalPromise = $http({
-            url: `${connectionManager.url()}upload/${removedDataset.data.filename}`,
-            method: 'delete'
-        });
+        let removedDataset = datasets[index],
+            removalPromise;
 
-        removalPromise.finally(function () {
-            datasets.splice(index, 1);
-        });
-
-        return removalPromise;
+        if(removedDataset.type === 'file') {
+            removalPromise = $http({
+                url: `${connectionManager.url()}upload/${removedDataset.data.filename}`,
+                method: 'delete'
+            }).then((success) => {
+                return datasets.splice(index, 1);
+            });
+        }
+        
+        return removalPromise || datasets.splice(index, 1);
     }
 
     return {

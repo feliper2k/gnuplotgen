@@ -25,7 +25,7 @@ module.exports = function (model) {
 
         // boolean values
         if(escapedModel.zeroaxis) {
-            template += 'set <%= axis %>zeroaxis lt 1 lc rgb "gray"' + "\n";
+            template += 'set <%= axis %>zeroaxis lt 1 lc rgb "black"' + "\n";
         }
         if(escapedModel.logscale) {
             template += 'set logscale <%= axis %>' + "\n";
