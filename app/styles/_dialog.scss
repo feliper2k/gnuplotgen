@@ -1,5 +1,9 @@
 $decoration-text-color: #333;
 
+#plotDataFile {
+    display: none;
+}
+
 md-dialog {
     min-width: 300px;
 
@@ -51,7 +55,22 @@ md-dialog {
 
     .data-preview {
         overflow: auto;
-        max-height: 300px;
+        max-height: 250px;
+    }
+
+    .preview-header {
+        border-bottom: solid 2px $teal;
+    }
+
+    span.index {
+        padding: 8px 12px;
+        background: $teal;
+        color: #fff;
+        border-radius: 3px;
+    }
+
+    md-list-item span {
+        text-align: right;
     }
 }
 

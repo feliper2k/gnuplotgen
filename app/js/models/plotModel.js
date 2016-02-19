@@ -42,10 +42,10 @@ function gpPlotModel() {
             colors: 'full',
 
             margins: {
-                top: null,
-                left: null,
-                right: null,
-                bottom: null
+                tmargin: 0.9,
+                lmargin: 0.1,
+                rmargin: 0.9,
+                bmargin: 0.1
             },
 
             tics: {
@@ -76,6 +76,8 @@ function gpPlotModel() {
             plot = initPlot;
         },
 
+        datasets: [],
+
         plotStyles: [{
             name: 'Style 1',
             plotWith: 'lines',
@@ -96,5 +98,5 @@ function gpPlotModel() {
 
 export default {
     name: 'plotModel',
-    value: gpPlotModel()
+    value: gpPlotModel
 };

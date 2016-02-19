@@ -1,6 +1,8 @@
 'use strict';
 
-function gpDatasetsModel() {
+function gpDatasetsModel($http, connectionManager) {
+    'ngInject';
+
     const datasets = [];
     let _ = require('lodash');
 
@@ -11,8 +13,17 @@ function gpDatasetsModel() {
     }
 
     function deleteDataset(index) {
-        // TODO: usuwanie danych z dysku za pomocą żądań http, zwracanie promisa, etc.
-        return datasets.splice(index, 1);
+        let removedDataset = datasets[index];
+        let removalPromise = $http({
+            url: `${connectionManager.url()}upload/${removedDataset.data.filename}`,
+            method: 'delete'
+        });
+
+        removalPromise.finally(function () {
+            datasets.splice(index, 1);
+        });
+
+        return removalPromise;
     }
 
     return {
@@ -30,5 +41,5 @@ function gpDatasetsModel() {
 
 export default {
     name: 'datasetsModel',
-    value: gpDatasetsModel()
+    value: gpDatasetsModel
 };

@@ -1,0 +1,103 @@
+<md-dialog aria-label="Dataset Wizard" class="dialog dialog__datawizard" layout="column" ng-cloak>
+    <md-toolbar>
+        <div class="md-toolbar-tools">
+            <h2 flex>Dataset Wizard</h2>
+            <md-button class="md-icon-button" ng-click="dw.cancel()">
+                <md-icon aria-label="close">close</md-icon>
+            </md-button>
+        </div>
+    </md-toolbar>
+    <md-dialog-actions layout="row" layout-align="center center" layout-padding>
+        <md-button md-autofocus ng-click="dw.create()">
+            Create
+        </md-button>
+        <md-button ng-click="dw.cancel()">
+            Cancel
+        </md-button>
+    </md-dialog-actions>
+    <md-dialog-content>
+        <md-tabs md-dynamic-height class="md-primary" md-stretch-tabs="always">
+            <md-tab label="Function" layout-padding md-on-select="dw.setDatasetType('function')">
+                <md-content layout-margin>
+                    <md-radio-group ng-model="dw.newData.functionType" layout="row">
+                        <md-radio-button value="2d" flex="50">Single 2D</md-radio-button>
+                        <md-radio-button value="param2d" flex="50">Parametric 2D</md-radio-button>
+                    </md-radio-group>
+
+                    <section ng-if="dw.newData.functionType === '2d'">
+                        <div class="row" layout="row" layout-margin>
+                            <md-input-container flex="40" layout-padding>
+                                <label>Description</label>
+                                <input type="text" ng-model="dw.newData.description">
+                            </md-input-container>
+                            <md-input-container flex="60" layout-padding>
+                                <label>f(x) = </label>
+                                <input type="text" ng-model="dw.newData.formulas[0]">
+                            </md-input-container>
+                        </div>
+                    </section>
+
+                    <section ng-if="dw.newData.functionType === 'param2d'">
+                        <div class="row" layout="row" layout-margin>
+                            <md-input-container flex="40" layout-padding>
+                                <label>Description</label>
+                                <input type="text" ng-model="dw.newData.description">
+                            </md-input-container>
+                            <md-input-container flex="60" layout-padding>
+                                <label>x(t) = </label>
+                                <input type="text" ng-model="dw.newData.formulas[0]">
+                            </md-input-container>
+                        </div>
+                        <div class="row" layout="row" layout-margin>
+                            <md-input-container flex="60" flex-offset="40" layout-padding>
+                                <label>y(t) = </label>
+                                <input type="text" ng-model="dw.newData.formulas[1]">
+                            </md-input-container>
+                        </div>
+                    </section>
+
+                </md-content>
+            </md-tab>
+            <md-tab label="Data" layout-padding md-on-select="dw.setDatasetType('file')">
+                <p class="row" layout="row" layout-margin layout-padding layout-align="left center">
+                    <input type="file" name="plotData" id="plotDataFile" file-selector="dw.newData.formData">
+                    <md-button layout="row" layout-padding layout-align="left center" ng-click="dw.initializeUpload()">
+                        <md-icon aria-label="file_upload">file_upload</md-icon>
+                        <span flex>Upload new file</span>
+                    </md-button>
+                    <span flex>{{ dw.preview.originalName }}</span>
+                </p>
+                <div class="row no-vert-space" layout-padding layout-fill layout="column">
+                    <md-progress-linear md-mode="indeterminate" ng-if="dw.preview.loading"></md-progress-linear>
+
+                    <!-- columns -->
+                    <div class="row no-vert-space" layout="row" layout-margin layout-padding>
+                        <span flex="15"></span>
+                        <span flex layout-padding ng-repeat="entry in dw.preview.content[0]" class="preview-header">
+                            <md-checkbox ng-click="dw.toggleColumn($index)" ng-checked="dw.newData.useColumns[$index]">Column {{ $index+1 }}</md-checkbox>
+                        </span>
+                    </div>
+
+                    <md-content class="data-preview">
+                        <md-list layout-margin>
+                            <md-list-item ng-repeat="row in dw.preview.content">
+                                <span flex="15" layout-padding class="index">
+                                    {{ $index+1 }}
+                                </span>
+                                <span flex layout-padding ng-repeat="entry in row">
+                                    {{ entry }}
+                                </span>
+                            </md-list-item>
+                            <md-list-item layout-align="center center" ng-if="dw.preview.content.length">
+                                <span>
+                                    <md-icon aria-label="more_vert">more_vert</md-icon>
+                                </span>
+                            </md-list-item>
+                        </md-list>
+                    </md-content>
+                </div>
+            </md-tab>
+        </md-tabs>
+    </md-dialog-content>
+
+</md-dialog>

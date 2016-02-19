@@ -8,7 +8,7 @@ function gpMarginsModal($mdDialog, $scope, plotModel) {
     const vm = this;
     vm.cancel = $mdDialog.cancel;
 
-    vm.margins = {};
+    vm.margins = untransformMargins(plotModel.style.margins);
 
     $scope.$watch(function () {
         return vm.margins;
@@ -25,6 +25,19 @@ function gpMarginsModal($mdDialog, $scope, plotModel) {
         };
 
         return calculated;
+    }
+
+    function untransformMargins(m) {
+        let uncalculated = {
+            left: m.lmargin*100,
+            right: (1-m.rmargin)*100,
+            top: (1-m.tmargin)*100,
+            bottom: m.bmargin*100
+        };
+
+        return _.mapValues(uncalculated, (value) => {
+            return Math.round(value);
+        });
     }
 
     return this;
