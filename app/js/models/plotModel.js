@@ -145,6 +145,12 @@ function gpPlotModel(datasetsModel) {
             showMinor: true
         },
 
+        parametric: {
+            enable: false,
+            tmin: 0,
+            tmax: 1
+        },
+
         options: options
     };
 

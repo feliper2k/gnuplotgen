@@ -115,8 +115,13 @@ $icon-size-lg: 36px;
 
 // custom item adjustments
 .ribbonitem__plotGeneral,
-.ribbonitem__axesGeneral {
+.ribbonitem__axesGeneral
+ {
     max-width: 250px;
+}
+
+.ribbonitem__plotParametric {
+    max-width: 220px;
 }
 
 .ribbonitem__axesMarkersAdvanced {

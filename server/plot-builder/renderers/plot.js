@@ -4,7 +4,14 @@ module.exports = function (model, target) {
         commands = require('./utils').StringBuilder(),
         settings = require('../../settings.js');
 
+    // quality
     commands.append("set samples <%= samples %>");
+
+    // parametric mode
+    if(model.parametric.enable) {
+        commands.append("set parametric");
+        commands.append("set trange [<%= parametric.tmin %>:<%= parametric.tmax %>]");
+    }
 
     // plotting datasets
     var datasets = model.datasets;

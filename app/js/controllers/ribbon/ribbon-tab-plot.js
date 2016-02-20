@@ -9,6 +9,13 @@ let tabsPlot = {
     'Appearance': [{
         type: 'custom',
         name: 'plotStyle'
+    },
+    {
+        type: 'single',
+        label: 'Margins',
+        action: 'plotAppearanceMargins',
+        icon: 'picture_in_picture',
+        upright: true
     }],
 
     'Key position': [{
@@ -21,12 +28,9 @@ let tabsPlot = {
         name: 'keyAttributes'
     }],
 
-    'More': [{
-        type: 'single',
-        label: 'Margins',
-        action: 'plotAppearanceMargins',
-        icon: 'picture_in_picture',
-        upright: true
+    'Parametric': [{
+        type: 'custom',
+        name: 'plotParametric'
     }]
     /*,
     {

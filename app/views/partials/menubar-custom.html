@@ -72,6 +72,24 @@
     </div>
 </ribbon-item-src>
 
+<ribbon-item-src name="plotParametric">
+    <div class="row">
+        <md-input-container>
+            <md-checkbox ng-model="rbm.plot.parametric.enable">Parametric mode</md-checkbox>
+        </md-input-container>
+    </div>
+    <div layout="row">
+        <md-input-container flex="50">
+            <label>Min t</label>
+            <input type="number" step="0.1" ng-model="rbm.plot.parametric.tmin">
+        </md-input-container>
+        <md-input-container flex="50">
+            <label>Max t</label>
+            <input type="number" step="0.1" ng-model="rbm.plot.parametric.tmax">
+        </md-input-container>
+    </div>
+</ribbon-item-src>
+
 <ribbon-item-src name="axesChooser">
     <md-radio-group ng-model="rbm.plot.axes.active">
         <div class="row" ng-repeat="axis in ['x', 'y']">
