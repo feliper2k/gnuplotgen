@@ -1,12 +1,19 @@
 'use strict';
 
 let tabs = {
-    'General': [{
+    'Current dataset': [{
         type: 'custom',
         name: 'stylesCurrent'
-    }, {
+    }],
+
+    'Line style': [{
         type: 'custom',
         name: 'stylesAppearance'
+    }],
+
+    'Grid style': [{
+        type: 'custom',
+        name: 'stylesGrid'
     }]
 };
 

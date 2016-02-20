@@ -6,16 +6,7 @@ function gpPlotModel(datasetsModel) {
     let angular = require('angular'),
         plot;
 
-    let options = {
-        fontFace: ['serif', 'sans', 'Arial', 'Times', 'Georgia', 'Helvetica'],
-        lineStyle: '',
-        fontSize: ['6', '8', '10', '11', '12', '14', '16', '18', '20', '22', '24', '28', '32', '36', '48', '64', '72'],
-        colors: [{
-            id: 'full', label: 'Full color'
-        }, {
-            id: 'mono', label: 'Monochrome'
-        }]
-    };
+    let options = require('./_plotOptions.js');
 
     let initPlot = {
         title: "",
@@ -27,13 +18,6 @@ function gpPlotModel(datasetsModel) {
         style: {
             fontFace: 'sans',
             fontSize: '12',
-
-            lineStylesAvailable: [{
-                label: 'Subtle',
-                id: 'subtle',
-                value: 'something'
-            }],
-            lineStyle: 'subtle',
 
             key: {
                 enable: true,
@@ -119,16 +103,34 @@ function gpPlotModel(datasetsModel) {
         get datasets() {
             return datasetsModel.getActive();
         },
+
+        get datasetsAll() {
+            return datasetsModel.getCollection();
+        },
+
         // datasets: [],
 
-        plotStyles: [{
-            plotWith: 'lines',
-            lineColor: '#990000',
+        selectedStyle: 0,
+        lineStyles: [{
+            plotWith: options.lineStyle.plotWith[0].value,
+            lineColor: options.lineStyle.lineColor[0].value,
             lineWidth: 2,
-            dashType: 0,
             pointType: 0,
-            pointSize: 1
+            pointSize: 1,
+            pointInterval: 1
         }],
+
+        get currentStyle() {
+            return this.lineStyles[this.selectedStyle];
+        },
+
+        gridStyle: {
+            majorWidth: 1,
+            minorWidth: 0.5,
+            lineColor: options.lineStyle.lineColor[0].value,
+            showMajor: false,
+            showMinor: true
+        },
 
         options: options
     };

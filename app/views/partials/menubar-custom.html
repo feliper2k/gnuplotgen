@@ -173,57 +173,93 @@
 </ribbon-item-src>
 
 <ribbon-item-src name="stylesCurrent">
-    <div class="row" layout="row">
-        <md-input-container flex="70">
-            <label>Font face</label>
-            <md-select ng-model="rbm.plot.style.fontFace" flex>
-                <md-option ng-repeat="(fontName, fontValue) in rbm.plot.style.fontsAvailable" value="{{ fontValue }}" >{{ fontName }}</md-option>
+    <div class="row">
+        <md-input-container>
+            <label>Current dataset</label>
+            <md-select ng-model="rbm.plot.selectedStyle">
+                <md-option ng-repeat="ds in rbm.plot.datasetsAll" ng-value="$index">
+                    {{ ds.label }}
+                </md-option>
             </md-select>
         </md-input-container>
-        <md-input-container flex="30">
-            <label>Size</label>
-            <input type="number" name="plotStyleFontSize" ng-model="rbm.plot.style.fontSize" flex>
-        </md-input-container>
+
     </div>
     <div class="row" layout="row">
-        <md-input-container flex="70">
-            <label>Line styles</label>
-            <md-select ng-model="rbm.plot.style.lineStyle">
-                <md-option ng-repeat="style in rbm.plot.style.lineStylesAvailable" value="{{ style.id }}" >{{ style.label }}</md-option>
-                <md-option value="custom" >Custom...</md-option>
-            </md-select>
-        </md-input-container>
-        <md-input-container flex="30">
-            <label>Quality</label>
-            <input type="number" name="plotStyleSamples" ng-model="rbm.plot.samples" flex>
+        <md-input-container>
+            <md-checkbox ng-model="rbm.plot.datasetsAll[rbm.plot.selectedStyle].visible">Visible</md-checkbox>
         </md-input-container>
     </div>
 </ribbon-item-src>
 
 <ribbon-item-src name="stylesAppearance">
     <div class="row" layout="row">
-        <md-input-container flex="70">
-            <label>Font face</label>
-            <md-select ng-model="rbm.plot.styles.fontFace" flex>
-                <md-option ng-repeat="(fontName, fontValue) in rbm.plot.style.fontsAvailable" value="{{ fontValue }}" >{{ fontName }}</md-option>
+        <md-input-container flex="40">
+            <label>Plot with</label>
+            <md-select ng-model="rbm.plot.currentStyle.plotWith">
+                <md-option ng-repeat="opt in rbm.plot.options.lineStyle.plotWith" ng-value="opt.value">
+                    {{ opt.label }}
+                </md-option>
             </md-select>
         </md-input-container>
-        <md-input-container flex="30">
+        <md-input-container flex="40">
+            <label>Line color</label>
+            <md-select ng-model="rbm.plot.currentStyle.lineColor" class="color-selector">
+                <md-option ng-repeat="opt in rbm.plot.options.lineStyle.lineColor" ng-value="opt.value">
+                    <span ng-style="{ color: opt.value }">{{ opt.label }}</span>
+                </md-option>
+            </md-select>
+        </md-input-container>
+        <md-input-container flex="20">
+            <label>Width</label>
+            <input type="number" ng-model="rbm.plot.currentStyle.lineWidth" min="0" step="0.5">
+        </md-input-container>
+
+    </div>
+    <div class="row" layout="row">
+        <md-input-container flex="60">
+            <label>Point type</label>
+            <md-select ng-model="rbm.plot.currentStyle.pointType">
+                <md-option ng-repeat="pt in rbm.plot.options.lineStyle.pointType" ng-value="$index">
+                    {{ pt }}
+                </md-option>
+            </md-select>
+        </md-input-container>
+        <md-input-container flex="20">
             <label>Size</label>
-            <input type="number" name="plotStyleFontSize" ng-model="rbm.plot.style.fontSize" flex>
+            <input type="number" ng-model="rbm.plot.currentStyle.pointSize" min="0" step="0.5">
+        </md-input-container>
+        <md-input-container flex="20">
+            <label>Interval</label>
+            <input type="number" ng-model="rbm.plot.currentStyle.pointInterval" min="1" step="1">
+        </md-input-container>
+    </div>
+</ribbon-item-src>
+
+<ribbon-item-src name="stylesGrid">
+    <div class="row" layout="row">
+        <md-input-container flex="50">
+            <label>Line color</label>
+            <md-select ng-model="rbm.plot.gridStyle.lineColor" class="color-selector">
+                <md-option ng-repeat="opt in rbm.plot.options.lineStyle.lineColor" ng-value="opt.value">
+                    <span ng-style="{ color: opt.value }">{{ opt.label }}</span>
+                </md-option>
+            </md-select>
+        </md-input-container>
+        <md-input-container flex="25">
+            <label>Minor width</label>
+            <input type="number" ng-model="rbm.plot.gridStyle.majorWidth" min="0" step="0.5">
+        </md-input-container>
+        <md-input-container flex="25">
+            <label>Major width</label>
+            <input type="number" ng-model="rbm.plot.gridStyle.minorWidth" min="0" step="0.5">
         </md-input-container>
     </div>
     <div class="row" layout="row">
-        <md-input-container flex="70">
-            <label>Line styles</label>
-            <md-select ng-model="rbm.plot.style.lineStyle">
-                <md-option ng-repeat="style in rbm.plot.style.lineStylesAvailable" value="{{ style.id }}" >{{ style.label }}</md-option>
-                <md-option value="custom" >Custom...</md-option>
-            </md-select>
+        <md-input-container flex="50">
+            <md-checkbox ng-model="rbm.plot.gridStyle.showMajor">Major lines</md-checkbox>
         </md-input-container>
-        <md-input-container flex="30">
-            <label>Quality</label>
-            <input type="number" name="plotStyleSamples" ng-model="rbm.plot.samples" flex>
+        <md-input-container flex="50">
+            <md-checkbox ng-model="rbm.plot.gridStyle.showMajor">Minor lines</md-checkbox>
         </md-input-container>
     </div>
 </ribbon-item-src>

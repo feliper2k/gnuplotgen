@@ -77,7 +77,7 @@ $icon-size-lg: 36px;
 
             md-checkbox {
                 margin-top: 24px;
-                margin-bottom: 0px;
+                margin-bottom: 6px;
             }
 
             input[type="number"] {
@@ -121,6 +121,11 @@ $icon-size-lg: 36px;
 
 .ribbonitem__axesMarkersAdvanced {
     max-width: 280px;
+}
+
+.ribbonitem__stylesAppearance,
+.ribbonitem__stylesGrid {
+    max-width: 340px;
 }
 
 .ribbonitem__axesMarkers {

@@ -4,36 +4,27 @@ module.exports = function (model, target) {
         commands = require('./utils').StringBuilder(),
         settings = require('../../settings.js');
 
-    // colors
-    // if(model.style.colors === 'mono') {
-    //     commands += "set monochrome\n"
-    // }
-
-    // quality, i.e. samples and isosamples
     commands.append("set samples <%= samples %>");
 
-    // commands += "plot sin(x)";
-
     // plotting datasets
-
     var datasets = model.datasets;
+    var plots = [];
 
-    _.each(datasets, function (ds) {
+    _.each(datasets, function (ds, index) {
         var specs;
 
         switch(ds.type) {
             case '2d':
-            specs = t("<%= formula %> title '<%= title %>' with linespoints")({
+            specs = t("<%= formula %> title '<%= title %>'")({
                 formula: ds.data.formulas[0],
                 title: ds.label
             });
             break;
             case 'param2d':
-            // TODO!
-            specs = ds.data.formulas.join(', ');
+            specs = ds.data.formulas.join(',');
             break;
             case 'file':
-            specs = t("'<%= file %>' using <%= columns %> title '<%= title %>' with linespoints")({
+            specs = t("'<%= file %>' using <%= columns %> title '<%= title %>'")({
                 file: settings.temp.uploadsDir + '/' + ds.data.filename,
                 title: ds.label,
                 columns: ds.data.columns
@@ -41,8 +32,34 @@ module.exports = function (model, target) {
             break;
         }
 
-        if(specs) commands.append("plot " + specs);
+        // line styles
+        var styleModel = model.lineStyles[index];
+        var valueMapping = {
+            'plotWith': 'w',
+            'lineColor': 'lc',
+            'lineWidth': 'lw',
+            'pointType': 'pt',
+            'pointSize': 'ps',
+            'pointInterval': 'pi'
+        };
+
+        if(styleModel) {
+            specs += " " + _(styleModel).mapKeys(function (value, key) {
+                return valueMapping[key];
+            }).reduce(function (result, value, key) {
+                if(key === 'lc') {
+                    // special treatment for line colors
+                    value = "rgb '" + value + "'";
+                }
+
+                result.push([key, value].join(" "));
+                return result;
+            }, []).join(" ");
+        }
+
+        if(specs) plots.push(specs);
     });
 
+    commands.append("plot " + plots.join(', '));
     return t(commands)(model);
 };

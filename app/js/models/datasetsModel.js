@@ -7,8 +7,10 @@ function gpDatasetsModel($http, connectionManager) {
     let _ = require('lodash');
 
     function createDataset(type, label, data) {
+        let visible = true;
+
         datasets.push({
-            type, label, data
+            type, label, data, visible
         });
     }
 
@@ -24,16 +26,16 @@ function gpDatasetsModel($http, connectionManager) {
                 return datasets.splice(index, 1);
             });
         }
-        
+
         return removalPromise || datasets.splice(index, 1);
     }
 
     return {
         'get': (index) => datasets[index],
         'getCollection': () => datasets,
-        'getActive': () => _.filter(datasets, (ds) => !ds.disabled),
+        'getActive': () => _.filter(datasets, (ds) => ds.visible),
         'toggle': (n) => {
-            datasets[n].disabled = !datasets[n].disabled;
+            datasets[n].visible = !datasets[n].visible;
         },
         'create': createDataset,
         'delete': deleteDataset
