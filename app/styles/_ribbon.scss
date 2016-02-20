@@ -79,6 +79,10 @@ $icon-size-lg: 36px;
                 margin-top: 24px;
                 margin-bottom: 0px;
             }
+
+            input[type="number"] {
+                text-align: right;
+            }
         }
 
         &:after {
@@ -113,6 +117,10 @@ $icon-size-lg: 36px;
 .ribbonitem__plotGeneral,
 .ribbonitem__axesGeneral {
     max-width: 250px;
+}
+
+.ribbonitem__axesMarkersAdvanced {
+    max-width: 280px;
 }
 
 .ribbonitem__axesMarkers {

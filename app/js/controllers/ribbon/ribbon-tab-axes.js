@@ -11,9 +11,14 @@ let tabs = {
         name: 'axesGeneral'
     }],
 
-    'Tics': [{
+    'Tics style': [{
         type: 'custom',
         name: 'axesMarkers'
+    }],
+
+    'Tics settings': [{
+        type: 'custom',
+        name: 'axesMarkersAdvanced'
     }]
 };
 

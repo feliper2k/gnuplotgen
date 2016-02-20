@@ -60,15 +60,51 @@ function gpPlotModel(datasetsModel) {
             active: 'x',
             x: {
                 min: -5,
-                max: 5
+                max: 5,
+
+                ticsPosition: 'border',
+                ticsMirroring: true,
+
+                majorTics: {
+                    enable: true,
+                    frequency: 1,
+                    scale: 1
+                },
+                minorTics: {
+                    enable: false,
+                    frequency: 2,
+                    scale: 0.5
+                },
+                style: {
+                    fontFace: null,
+                    fontSize: null
+                }
             },
             y: {
                 min: -5,
-                max: 5
+                max: 5,
+
+                ticsPosition: 'border',
+                ticsMirroring: true,
+
+                majorTics: {
+                    enable: true,
+                    frequency: 1,
+                    scale: 1
+                },
+                minorTics: {
+                    enable: false,
+                    frequency: 2,
+                    scale: 0.5
+                },
+                style: {
+                    fontFace: null,
+                    fontSize: null
+                }
             },
-            z: {
-                min: -5,
-                max: 5
+
+            get activeAxis() {
+                return this[this.active];
             }
         },
 
@@ -76,6 +112,8 @@ function gpPlotModel(datasetsModel) {
 
         reset: () => {
             plot = initPlot;
+
+            // datasetsModel.each(delete);
         },
 
         get datasets() {
