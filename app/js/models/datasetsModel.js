@@ -32,6 +32,12 @@ function gpDatasetsModel($http, connectionManager) {
         return removalPromise || datasets.splice(index, 1);
     }
 
+    function clearAll() {
+        _.times(datasets.length, function () {
+            deleteDataset(0);
+        });
+    }
+
     return {
         'get': (index) => datasets[index],
         'getCollection': () => datasets,
@@ -40,7 +46,8 @@ function gpDatasetsModel($http, connectionManager) {
             datasets[n].visible = !datasets[n].visible;
         },
         'create': createDataset,
-        'delete': deleteDataset
+        'delete': deleteDataset,
+        'clear': clearAll
     };
 }
 

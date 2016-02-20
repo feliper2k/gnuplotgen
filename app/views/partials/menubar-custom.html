@@ -62,7 +62,7 @@
         <div class="row">
             <md-input-container>
                 <label>Title</label>
-                <input type="text" ng-model="rbm.plot.style.key.title">
+                <input type="text" ng-model="rbm.plot.style.key.title" special-chars>
             </md-input-container>
         </div>
         <div layout="row">
@@ -102,7 +102,7 @@
     <div class="row" layout="row">
         <md-input-container flex="66">
             <label>Label</label>
-            <input type="text" name="plotAxisLabel" ng-model="rbm.plot.axes.activeAxis.label" flex>
+            <input type="text" name="plotAxisLabel" ng-model="rbm.plot.axes.activeAxis.label" flex special-chars>
         </md-input-container>
         <md-input-container flex="33">
             <md-checkbox ng-model="rbm.plot.axes.activeAxis.zeroaxis">Zeroaxis</md-checkbox>

@@ -1,9 +1,23 @@
 'use strict';
 
-function RibbonActionListener($mdDialog, $http, plotRenderer, connectionManager) {
+function RibbonActionListener($mdDialog, $http, plotRenderer, plotModel, datasetsModel, connectionManager) {
     'ngInject';
 
     let actions = {
+        'newPlot': (event) => {
+            let confirm = $mdDialog.confirm()
+                  .title('Are you sure?')
+                  .content('This will reset all current settings and clear all data.')
+                  .targetEvent(event)
+                  .ok('Confirm')
+                  .cancel('Cancel');
+
+            $mdDialog.show(confirm).then(function() {
+                datasetsModel.clear();
+                plotModel.reset();
+            });
+        },
+
         'newDataset': (event) => {
             $mdDialog.show({
                 controller: 'gpDatasetsWizard',

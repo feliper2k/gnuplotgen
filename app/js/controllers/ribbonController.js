@@ -1,6 +1,6 @@
 'use strict';
 
-function gpRibbonController(ribbonActionListener) {
+function gpRibbonController(ribbonActionListener, datasetsModel) {
     'ngInject';
 
     // ViewModel
@@ -22,6 +22,9 @@ function gpRibbonController(ribbonActionListener) {
     };
 
     vm.action = ribbonActionListener;
+    vm.noDatasetsDefined = function () {
+        return datasetsModel.getCollection().length === 0;
+    };
 }
 
 export default {
