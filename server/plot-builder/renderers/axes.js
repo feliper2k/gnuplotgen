@@ -4,13 +4,14 @@ module.exports = function (model) {
         t = _.template,
         result = '';
 
+    // ['x', 'y', 'z'].forEach(function(axis) {
     ['x', 'y'].forEach(function(axis) {
         // sanitize user input
         var axisModel = _.mapValues(model.axes[axis], function (value) {
             return typeof value === 'string' ? escape(value) : value;
         });
 
-        _.extend(axisModel, { axis: axis });
+        _.extend(axisModel, { axis: axis, gridStyle: model.gridStyle });
         var template = '';
 
         // labels
@@ -66,8 +67,27 @@ module.exports = function (model) {
 
         template += 'set <%= axis %>tics font "<%= style.fontFace %>,<%= style.fontSize %>"' + "\n";
 
+        // grid
+        // gridStyle: {
+        //     majorWidth: 1,
+        //     minorWidth: 0.5,
+        //     lineColor: options.lineStyle.lineColor[0].value,
+        //     showMajor: false,
+        //     showMinor: true
+        // },
+        var gs = model.gridStyle;
+        if(gs.showMajor) {
+            template += "set grid <%= axis %>tics lc rgb '<%= gridStyle.lineColor %>' lw <%= gridStyle.majorWidth %>" + "\n";
+        }
+        if(gs.showMinor) {
+            template += "set grid m<%= axis %>tics lc rgb '<%= gridStyle.lineColor %>' lw <%= gridStyle.minorWidth %>" + "\n";
+        }
+
         result += t(template)(axisModel);
     });
+
+
+
 
     return result;
 };

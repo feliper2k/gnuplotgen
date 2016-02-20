@@ -12,6 +12,17 @@
             opacity: 1;
         }
     }
+
+    &notice {
+        md-icon {
+            float: left;
+            color: $blue;
+            margin-top: 20px;
+        }
+        p {
+            color: $blue; margin-left: 40px;
+        }
+    }
 }
 
 // other special classes

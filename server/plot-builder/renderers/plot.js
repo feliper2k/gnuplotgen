@@ -13,6 +13,11 @@ module.exports = function (model, target) {
         commands.append("set trange [<%= parametric.tmin %>:<%= parametric.tmax %>]");
     }
 
+    // polar mode
+    // if(model.polar.enable) {
+    //     commands.append("set polar")
+    // }
+
     // plotting datasets
     var datasets = model.datasets;
     var plots = [];

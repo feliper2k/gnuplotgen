@@ -142,7 +142,7 @@ function gpPlotModel(datasetsModel) {
             minorWidth: 0.5,
             lineColor: options.lineStyle.lineColor[0].value,
             showMajor: false,
-            showMinor: true
+            showMinor: false
         },
 
         parametric: {
