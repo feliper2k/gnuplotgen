@@ -181,22 +181,13 @@
     </div>
 </ribbon-item-src>
 
-<ribbon-item-src name="datasetsVisibility">
-    <div layout="row">
-        <md-button class="md-grid-item-content md-margin" class="upright" ng-repeat="dataset in rbm.datasets">
-            <md-icon aria-label="{{ dataset.icon }}" class="material-icons icon-big">{{ dataset.icon }}</md-icon>
-            <div class="md-grid-text md-margin"> {{ dataset.name }} </div>
-        </md-button>
-    </div>
-</ribbon-item-src>
-
 <ribbon-item-src name="stylesCurrent">
     <div class="row">
         <md-input-container>
             <label>Current dataset</label>
             <md-select ng-model="rbm.plot.selectedStyle">
                 <md-option ng-repeat="ds in rbm.plot.datasetsAll" ng-value="$index">
-                    {{ ds.label }}
+                    <span ng-class="{ 'icon-visible': ds.visible, 'icon-not-visible': !ds.visible }">{{ ds.label }}</span>
                 </md-option>
             </md-select>
         </md-input-container>
