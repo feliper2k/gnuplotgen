@@ -91,7 +91,14 @@ module.exports = {
             value: '#607d8b'
         }],
 
-        pointType: ['None','Plus','Cross','Start','Box','Filled box',
+        randomLineColor: function() {
+            let _ = require('lodash');
+
+            let colorRange = this.lineColor.length - 1;
+            return this.lineColor[_.random(0, colorRange)].value;
+        },
+
+        pointType: ['None','Plus','Cross','Star','Box','Filled box',
                     'Circle','Filled circle','Triangle','Filled triangle',
                     'Inverted triangle','Filled inverted triangle',
                     'Diamond','Filled diamond']

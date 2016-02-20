@@ -9,9 +9,11 @@ function gpDatasetsModel($http, connectionManager) {
     function createDataset(type, label, data) {
         let visible = true;
 
-        datasets.push({
+        let pushed = datasets.push({
             type, label, data, visible
         });
+
+        return pushed - 1;
     }
 
     function deleteDataset(index) {

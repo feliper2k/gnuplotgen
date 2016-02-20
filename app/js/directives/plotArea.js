@@ -46,7 +46,7 @@ function PlotArea(plotModel, datasetsModel, $rootScope) {
 
         let position = {
             x: vars.x.dataMin + (event.offsetX-vars.x.pixelMin)/vars.x.pixelRange * vars.x.dataRange,
-            y: -vars.y.dataMin - (event.offsetY-vars.y.pixelMin)/vars.y.pixelRange * vars.y.dataRange,
+            y: vars.y.dataMin + (event.offsetY-vars.y.pixelMin)/vars.y.pixelRange * vars.y.dataRange,
             inBounds: inBoundsX && inBoundsY
         };
 

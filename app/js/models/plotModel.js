@@ -6,6 +6,8 @@ function gpPlotModel(datasetsModel) {
     let angular = require('angular'),
         plot;
 
+    let _ = require('lodash');
+
     let options = require('./_plotOptions.js');
 
     let initPlot = {
@@ -29,9 +31,9 @@ function gpPlotModel(datasetsModel) {
 
             margins: {
                 tmargin: 0.9,
-                lmargin: 0.1,
+                lmargin: 0.15,
                 rmargin: 0.9,
-                bmargin: 0.1
+                bmargin: 0.15
             },
 
             tics: {
@@ -113,7 +115,7 @@ function gpPlotModel(datasetsModel) {
         selectedStyle: 0,
         lineStyles: [{
             plotWith: options.lineStyle.plotWith[0].value,
-            lineColor: options.lineStyle.lineColor[0].value,
+            lineColor: options.lineStyle.randomLineColor(),
             lineWidth: 2,
             pointType: 0,
             pointSize: 1,
@@ -121,7 +123,18 @@ function gpPlotModel(datasetsModel) {
         }],
 
         get currentStyle() {
-            return this.lineStyles[this.selectedStyle];
+            // return current style - if not available,
+            // create one with another color
+            let tentativeStyle = this.lineStyles[this.selectedStyle];
+
+            if(!tentativeStyle) {
+                let styleCopy = _.clone(this.lineStyles[0]);
+
+                styleCopy.lineColor = options.lineStyle.randomLineColor();
+                this.lineStyles[this.selectedStyle] = styleCopy;
+            }
+
+            return tentativeStyle;
         },
 
         gridStyle: {

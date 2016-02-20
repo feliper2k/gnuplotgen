@@ -1,6 +1,6 @@
 'use strict';
 
-function gpDatasetsWizard($scope, $http, $mdDialog, datasetsModel, connectionManager) {
+function gpDatasetsWizard($scope, $http, $mdDialog, datasetsModel, plotModel, connectionManager) {
     'ngInject';
 
     var $ = require('jquery'),
@@ -103,16 +103,18 @@ function gpDatasetsWizard($scope, $http, $mdDialog, datasetsModel, connectionMan
             return result;
         }, []).join(':');
 
+        let newIndex;
+
         switch(nd.datasetType) {
             case 'function':
-            datasetsModel.create(nd.functionType, nd.description, {
+            newIndex = datasetsModel.create(nd.functionType, nd.description, {
                 formulas: nd.formulas,
                 functionType: nd.functionType
             });
             break;
             case 'file':
             if(vm.preview.content.length) {
-                datasetsModel.create('file', vm.preview.originalName, {
+                newIndex = datasetsModel.create('file', vm.preview.originalName, {
                     filename: vm.preview.fileName,
                     title: vm.preview.originalName,
                     columns: columns
@@ -120,6 +122,10 @@ function gpDatasetsWizard($scope, $http, $mdDialog, datasetsModel, connectionMan
             }
             break;
         }
+
+        // create new style for a dataset by calling a fail-safe getter
+        plotModel.selectedStyle = newIndex;
+        let currentStyle = plotModel.currentStyle;
 
         vm.cancel();
     };

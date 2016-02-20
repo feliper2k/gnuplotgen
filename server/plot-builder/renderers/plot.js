@@ -60,6 +60,9 @@ module.exports = function (model, target) {
         if(specs) plots.push(specs);
     });
 
-    commands.append("plot " + plots.join(', '));
+    if(plots.length) {
+        commands.append("plot " + plots.join(', '));
+    }
+
     return t(commands)(model);
 };
