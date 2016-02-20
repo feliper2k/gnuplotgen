@@ -23,6 +23,33 @@
             color: $blue; margin-left: 40px;
         }
     }
+
+    &chars-selector {
+        position: fixed; padding: 8px; z-index: 1000;
+        background: #fff; margin-top: 12px;
+        top: -9999px;
+        max-width: 290px;
+        border-radius: 3px;
+
+        transition: opacity 0.5s ease;
+
+        &.ng-hide {
+            opacity: 0;
+        }
+
+        .md-icon-button {
+            width: 16px; height: 16px; line-height: 16px;
+        }
+
+        button.md-mini {
+            min-width: inherit;
+        }
+
+        h4 {
+            text-align: center; margin: 0; text-transform: uppercase; color: #999;
+            font-size: 0.8em;
+        }
+    }
 }
 
 // other special classes
