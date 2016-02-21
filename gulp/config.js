@@ -25,6 +25,11 @@ export default {
     dest: 'build/images'
   },
 
+  copyserver: {
+    src: 'server/**/*',
+    dest: 'build'
+  },
+
   fonts: {
     src: ['app/fonts/**/*'],
     dest: 'build/fonts'
