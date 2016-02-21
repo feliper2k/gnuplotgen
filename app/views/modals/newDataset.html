@@ -64,6 +64,10 @@
                 </md-content>
             </md-tab>
             <md-tab label="Data" layout-padding md-on-select="dw.setDatasetType('file')">
+                <div class="row special__notice" style="max-width: 600px" layout-padding layout-margin>
+                    <md-icon aria-label="info_outline">info_outline</md-icon>
+                    <p>Data files consist of <strong>space and/or tab separated</strong> values (i.e. rows), which are then separated by newline characters.</p>
+                </div>
                 <p class="row" layout="row" layout-margin layout-padding layout-align="left center">
                     <input type="file" name="plotData" id="plotDataFile" file-selector="dw.newData.formData">
                     <md-button layout="row" layout-padding layout-align="left center" ng-click="dw.initializeUpload()">

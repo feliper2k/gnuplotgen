@@ -156,10 +156,6 @@ function PlotArea(plotModel, datasetsModel, $rootScope) {
             }
         };
 
-        plotView.css({
-            pointerEvents: 'none',
-            cursor: 'crosshair'
-        });
 
         element.on('mousemove', function (event) {
             scope.mousePosition = calculateMousePosition(event, plotData.status);

@@ -21,18 +21,22 @@ let tabsHome = {
     }],
 
     'Export': [{
+        // label: 'Export script',
+        // icon: 'code',
+        // type: 'menu',
+        // menu: [{
+        //     label: 'Simple',
+        //     icon: 'code',
+        //     action: 'exportScriptSimple'
+        // }, {
+        //     label: 'Embedded Data',
+        //     icon: 'attach_file',
+        //     action: 'exportScriptEmbedded'
+        // }]
         label: 'Export script',
         icon: 'code',
-        type: 'menu',
-        menu: [{
-            label: 'Simple',
-            icon: 'code',
-            action: 'exportScriptSimple'
-        }, {
-            label: 'Embedded Data',
-            icon: 'attach_file',
-            action: 'exportScriptEmbedded'
-        }]
+        type: 'single',
+        action: 'exportScriptSimple'
     }, {
         label: 'Export EPS',
         icon: 'image',

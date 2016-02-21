@@ -1,6 +1,6 @@
 'use strict';
 
-function gpDatasetsModel($http, connectionManager) {
+function gpDatasetsModel($http, connectionManager, $q) {
     'ngInject';
 
     const datasets = [];
@@ -20,7 +20,10 @@ function gpDatasetsModel($http, connectionManager) {
         let removedDataset = datasets[index],
             removalPromise;
 
-        if(removedDataset.type === 'file') {
+        if(!removedDataset) {
+            removalPromise = $q.reject();
+        }
+        else if(removedDataset.type === 'file') {
             removalPromise = $http({
                 url: `${connectionManager.url()}upload/${removedDataset.data.filename}`,
                 method: 'delete'
@@ -28,14 +31,19 @@ function gpDatasetsModel($http, connectionManager) {
                 return datasets.splice(index, 1);
             });
         }
+        else {
+            removalPromise = $q.resolve(datasets.splice(index, 1));
+        }
 
-        return removalPromise || datasets.splice(index, 1);
+        return removalPromise;
     }
 
     function clearAll() {
-        _.times(datasets.length, function () {
-            deleteDataset(0);
-        });
+        let arrayOfZeros = _.times(datasets.length, () => 0);
+
+        return $q.all(
+            _.map(arrayOfZeros, deleteDataset)
+        );
     }
 
     return {

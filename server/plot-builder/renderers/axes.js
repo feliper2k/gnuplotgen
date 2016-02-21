@@ -20,8 +20,10 @@ module.exports = function (model) {
         }
 
         // range
-        if(axisModel.min && axisModel.max) {
-            template += 'set <%= axis %>range [<%= min %>:<%= max %>]' + "\n";
+        if(!axisModel.autorange){
+            if(axisModel.min && axisModel.max) {
+                template += 'set <%= axis %>range [<%= min %>:<%= max %>]' + "\n";
+            }
         }
 
         // boolean values

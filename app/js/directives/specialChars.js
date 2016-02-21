@@ -50,7 +50,7 @@ function SpecialChars($compile, $parse) {
 
                 let model = $parse($attrs.ngModel);
                 let resultString = textBefore + str + textAfter;
-                model.assign($scope, resultString)
+                model.assign($scope, resultString);
             }
         };
     }
@@ -67,7 +67,8 @@ function SpecialChars($compile, $parse) {
 
             $(frameElement).css({
                 top: ($elem.offset().top + $elem.height()) + 'px',
-                left: $elem.offset().left + 'px'
+                left: $elem.offset().left + 'px',
+                zIndex: 100
             });
         });
 

@@ -13,10 +13,27 @@ module.exports = function (model, target) {
         commands.append("set trange [<%= parametric.tmin %>:<%= parametric.tmax %>]");
     }
 
-    // polar mode
-    // if(model.polar.enable) {
-    //     commands.append("set polar")
-    // }
+    // value mappings
+    function getValueMapping(type) {
+        var mappings = {
+            'default': {
+                'plotWith': 'w',
+                'lineColor': 'lc',
+                'lineWidth': 'lw',
+                'pointType': 'pt',
+                'pointSize': 'ps',
+                'pointInterval': 'pi'
+            },
+
+            'candlesticks': {
+                'plotWith': 'w',
+                'lineColor': 'lc',
+                'lineWidth': 'lw'
+            }
+        };
+
+        return mappings[type] ? mappings[type] : mappings.default;
+    }
 
     // plotting datasets
     var datasets = model.datasets;
@@ -46,14 +63,7 @@ module.exports = function (model, target) {
 
         // line styles
         var styleModel = model.lineStyles[index];
-        var valueMapping = {
-            'plotWith': 'w',
-            'lineColor': 'lc',
-            'lineWidth': 'lw',
-            'pointType': 'pt',
-            'pointSize': 'ps',
-            'pointInterval': 'pi'
-        };
+        var valueMapping = getValueMapping(styleModel.plotWith);
 
         if(styleModel) {
             specs += " " + _(styleModel).mapKeys(function (value, key) {

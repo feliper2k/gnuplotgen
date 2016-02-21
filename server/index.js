@@ -37,7 +37,7 @@ gpUtils.initializeTmpDirs();
 router
 .post('/plot', function (req, res) {
     var gnuplotModel = req.body;
-    var gnuplotString = gpPlotBuilder(req.body).render('pngcairo');
+    var gnuplotString = gpPlotBuilder(req.body).render('png');
 
     gpUtils.preflight(res);
 
@@ -86,7 +86,7 @@ router
     gpUtils.preflight(res);
 
     var gnuplotModel = req.body;
-    var gnuplotString = gpPlotBuilder(req.body).render('epscairo');
+    var gnuplotString = gpPlotBuilder(req.body).render('eps');
 
     temp.open({ dir: 'tmp', prefix: 'gnuplot-eps-', suffix: '.eps' }, function(err, info) {
         if (err) {
@@ -112,7 +112,7 @@ router
 .post('/script/simple', function (req, res) {
     gpUtils.preflight(res);
 
-    var scriptString = gpPlotBuilder(req.body).render('epscairo');
+    var scriptString = gpPlotBuilder(req.body).render('eps');
 
     temp.open({ dir: 'tmp', prefix: 'gnuplot-script-', suffix: '.gp' }, function(err, info) {
         if (err) {

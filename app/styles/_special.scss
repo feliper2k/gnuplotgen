@@ -27,14 +27,19 @@
     &chars-selector {
         position: fixed; padding: 8px; z-index: 1000;
         background: #fff; margin-top: 12px;
-        top: -9999px;
+        // top: -9999px;
+        z-index: -100;
         max-width: 290px;
         border-radius: 3px;
 
-        transition: opacity 0.5s ease;
+        transition: transform 0.3s ease, opacity 0.3s ease;
+        transform: scale(1);
+        transform-origin: left top;
 
         &.ng-hide {
             opacity: 0;
+            transform: scale(0);
+            z-index: 100;
         }
 
         .md-icon-button {

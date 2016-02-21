@@ -4,6 +4,15 @@ plot-area {
     overflow: visible;
     box-sizing: content-box;
     line-height: 0px;
+    cursor: crosshair;
+
+    img {
+        pointer-events: none;
+    }
+    // &:after {
+    //     position: absolute; width: 100%; height: 100%;
+    //     content: ''; display: block;
+    // }
 }
 
 .plotarea__ {
@@ -63,6 +72,8 @@ plot-area {
         transform: translateX(-50%);
         max-width: 400px;
     }
+
+
 }
 
 // error toasts

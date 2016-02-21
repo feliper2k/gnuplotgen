@@ -18,6 +18,10 @@ module.exports = {
             value: 'impulses'
         },
         {
+            label: 'Circles',
+            value: 'circles'
+        },
+        {
             label: 'Errorbars (X)',
             value: 'xerrorbars'
         },
@@ -40,6 +44,10 @@ module.exports = {
         {
             label: 'Errorlines (XY)',
             value: 'xyerrorlines'
+        },
+        {
+            label: 'Candlesticks',
+            value: 'candlesticks'
         }],
 
         lineColor: [{
