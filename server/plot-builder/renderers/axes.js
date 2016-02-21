@@ -67,20 +67,19 @@ module.exports = function (model) {
 
         template += 'set <%= axis %>tics font "<%= style.fontFace %>,<%= style.fontSize %>"' + "\n";
 
-        // grid
-        // gridStyle: {
-        //     majorWidth: 1,
-        //     minorWidth: 0.5,
-        //     lineColor: options.lineStyle.lineColor[0].value,
-        //     showMajor: false,
-        //     showMinor: true
-        // },
         var gs = model.gridStyle;
+        var gridAxes = [];
+
         if(gs.showMajor) {
-            template += "set grid <%= axis %>tics lc rgb '<%= gridStyle.lineColor %>' lw <%= gridStyle.majorWidth %>" + "\n";
+            gridAxes.push('<%= axis %>tics');
         }
         if(gs.showMinor) {
-            template += "set grid m<%= axis %>tics lc rgb '<%= gridStyle.lineColor %>' lw <%= gridStyle.minorWidth %>" + "\n";
+            gridAxes.push('m<%= axis %>tics');
+        }
+
+        if(gs.showMajor || gs.showMinor) {
+            var colorSpec = model.style.colors === 'full' ? "lc rgb '<%= gridStyle.lineColor %>'" : "lt 1";
+            template += "set grid " + gridAxes.join(" ") + " lw <%= gridStyle.majorWidth %> " + colorSpec + ", lw <%= gridStyle.minorWidth %> " + colorSpec + "\n";
         }
 
         result += t(template)(axisModel);

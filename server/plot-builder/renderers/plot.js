@@ -60,8 +60,15 @@ module.exports = function (model, target) {
                 return valueMapping[key];
             }).reduce(function (result, value, key) {
                 if(key === 'lc') {
-                    // special treatment for line colors
-                    value = "rgb '" + value + "'";
+                    // monochrome support
+                    if(model.style.colors === 'mono') {
+                        key = 'lt';             // use linetype instead
+                        value = index % 6 + 1;    // one of 6 predefined linetypes for mono
+                    }
+                    else {
+                        // special treatment for line colors
+                        value = "rgb '" + value + "'";
+                    }
                 }
 
                 result.push([key, value].join(" "));

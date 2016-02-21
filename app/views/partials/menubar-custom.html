@@ -212,7 +212,7 @@
         </md-input-container>
         <md-input-container flex="40">
             <label>Line color</label>
-            <md-select ng-model="rbm.plot.currentStyle.lineColor" class="color-selector">
+            <md-select ng-model="rbm.plot.currentStyle.lineColor" md-disabled="rbm.plot.style.colors === 'mono'" class="color-selector">
                 <md-option ng-repeat="opt in rbm.plot.options.lineStyle.lineColor" ng-value="opt.value">
                     <span ng-style="{ color: opt.value }">{{ opt.label }}</span>
                 </md-option>
@@ -248,7 +248,7 @@
     <div class="row" layout="row">
         <md-input-container flex="50">
             <label>Line color</label>
-            <md-select ng-model="rbm.plot.gridStyle.lineColor" class="color-selector">
+            <md-select ng-model="rbm.plot.gridStyle.lineColor" class="color-selector" md-disabled="rbm.plot.style.colors === 'mono'">
                 <md-option ng-repeat="opt in rbm.plot.options.lineStyle.lineColor" ng-value="opt.value">
                     <span ng-style="{ color: opt.value }">{{ opt.label }}</span>
                 </md-option>

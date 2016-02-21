@@ -2,7 +2,7 @@
 
 let symbolLibrary = {
     characters: [
-        "Γ", "Δ", "Θ", "Π", "Σ", "Ψ", "Ω", "α", "β", "γ", "δ", "ε", "ζ", "η", "θ", "λ", "μ", "π", "ρ",
+        "𝑓",  "Γ", "Δ", "Θ", "Π", "Σ", "Ψ", "Ω", "α", "β", "γ", "δ", "ε", "ζ", "η", "θ", "λ", "μ", "π", "ρ",
         "ℝ", "ℤ", "∈", "∉", "∋", "∌", "∀", "∃", "∑", "∞", "∫", "⊂", "⊃", "–", "—"
     ],
     controls: {
@@ -14,14 +14,14 @@ let symbolLibrary = {
     }
 };
 
-function SpecialChars($compile) {
+function SpecialChars($compile, $parse) {
     'ngInject';
 
     let frameTemplate = `
     <md-whiteframe class="md-whiteframe-z4 special__chars-selector" ng-show="frame.show">
         <h4>Symbols</h4>
         <div class="row">
-            <md-button ng-click="textfield.insert(char)" class="md-icon-button" md-no-ink ng-repeat="char in library.characters">{{ char }}</md-button>
+            <md-button ng-click="textfield.insert(char)" class="md-icon-button no-uppercase" md-no-ink ng-repeat="char in library.characters">{{ char }}</md-button>
         </div>
         <h4>Controls</h4>
         <div class="row">
@@ -48,12 +48,14 @@ function SpecialChars($compile) {
                 var textBefore = v.substring(0, caretPosition);
                 var textAfter  = v.substring(caretPosition, v.length);
 
-                $textfield.val(textBefore + str + textAfter);
+                let model = $parse($attrs.ngModel);
+                let resultString = textBefore + str + textAfter;
+                model.assign($scope, resultString)
             }
         };
     }
 
-    function link(scope, element, attrs) {
+    function link(scope, element, attrs, ngModel) {
         let $elem = $(element);
         let frameElement = $compile(frameTemplate)(scope);
 

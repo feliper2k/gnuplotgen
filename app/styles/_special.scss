@@ -73,6 +73,10 @@
     margin-bottom: 0px;
 }
 
+.no-uppercase {
+    text-transform: none;
+}
+
 // extras
 img[src=""] {
     display: none;

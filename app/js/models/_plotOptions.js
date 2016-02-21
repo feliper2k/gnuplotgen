@@ -2,8 +2,12 @@ module.exports = {
     fontFace: ['serif', 'sans', 'Arial', 'Times', 'Georgia', 'Helvetica'],
     lineStyle: {
         plotWith: [{
-            label: 'Lines',
+            label: 'Lines + Points',
             value: 'linespoints'
+        },
+        {
+            label: 'Lines',
+            value: 'lines'
         },
         {
             label: 'Points',
@@ -12,6 +16,30 @@ module.exports = {
         {
             label: 'Impulses',
             value: 'impulses'
+        },
+        {
+            label: 'Errorbars (X)',
+            value: 'xerrorbars'
+        },
+        {
+            label: 'Errorbars (Y)',
+            value: 'yerrorbars'
+        },
+        {
+            label: 'Errorbars (XY)',
+            value: 'xyerrorbars'
+        },
+        {
+            label: 'Errorlines (X)',
+            value: 'xerrorlines'
+        },
+        {
+            label: 'Errorlines (Y)',
+            value: 'yerrorlines'
+        },
+        {
+            label: 'Errorlines (XY)',
+            value: 'xyerrorlines'
         }],
 
         lineColor: [{

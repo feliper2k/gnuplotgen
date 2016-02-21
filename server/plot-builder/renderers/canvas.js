@@ -22,7 +22,7 @@ module.exports = function (model) {
     }
 
     if(model.style.colors === 'mono') {
-        output += " mono";
+        output += " mono dashed";
     }
 
     return output;
