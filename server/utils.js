@@ -65,25 +65,111 @@ function validateDatafile(file) {
             preview  = [];
 
         rl.on('line', function (line) {
+            // ignore empty lines and comments
+            if(line.match(/^[#!]/) || line.match(/^\s*$/))
+            return;
+
             if(++lineCount > previewSize) {
                 rl.close();
-
-                deferred.resolve(_.extend(file, {
-                    preview: preview
-                }));
                 return;
             }
 
+            // ignore inline comments
+            line.replace(/[#!].+/, '');
             preview.push(line);
+        });
+
+        rl.on('close', function () {
+            deferred.resolve(_.extend(file, {
+                preview: preview
+            }));
         });
     }
 
     return deferred.promise;
 }
 
+function dataFit(dataFile, params) {
+    var fitOptions = params.options || {};
+    var commands = require('./plot-builder/renderers/utils').StringBuilder();
+    var _ = require('lodash');
+    var t = _.template;
+
+    // for replacing function template placeholders with variable names
+    var varDummyObject = _.zipObject(params.variables, params.variables);
+
+    params = _.extend(params, {
+        file: dataFile,
+        via: params.variables.join(','),
+        using: params.columns.join(':'),
+        fun: t(params.funTemplate)(varDummyObject)
+    });
+
+    var fitDataFile = dataFile + '-fit';    // convention
+
+    function toString() {
+        commands.append('set fit errorvariables');
+
+        // fit limit
+        if(fitOptions.limit) {
+            commands.append(t('set fit limit <%= limit %>')(fitOptions));
+        }
+
+        commands.append(t("fit <%= fun %> '<%= file %>' using <%= using %> via <%= via %>")(params))
+
+        // printing variables to file
+        commands.append(t("set print '<%= printFile %>'")({ printFile: fitDataFile }));
+
+        _.each(params.variables, function (varLetter) {
+            commands.append(t('print sprintf("%.5f %.5f", <%= varLetter %>, <%= varLetter %>_err)')({ varLetter: varLetter }));
+        });
+
+        commands.append("");    // terminating newline
+        return commands.toString();
+    }
+
+    function readFitData() {
+        var fitVarsRaw = fs.readFileSync(fitDataFile, 'utf8');
+        var coeffs = {}, errors = {}, fun;
+
+        // parse variable data presented as follows
+        // [a] [a_err]
+        // [b] [b_err]
+        // ..
+        // [n] [n_err]
+
+        _.each(fitVarsRaw.split(/[\r\n]+/), function (line, index) {
+            if(line) {
+                var vrbLetter = params.variables[index];
+                var fitted = line.split(/\s+/);
+
+                coeffs[vrbLetter] = fitted[0];
+                errors[vrbLetter] = fitted[1];
+            }
+        });
+
+        fun = t(params.funTemplate)(coeffs);
+
+        // signs cleanup - suprisingly, no node libs for variable substitution, so a quick and dirty one:
+        fun = fun.replace(/\+\-/g, '-').replace(/\-\-/g, '+');
+
+        return {
+            fun: fun,
+            coeffs: coeffs,
+            errors: errors
+        };
+    }
+
+    return {
+        readFitData: readFitData,
+        toString: toString
+    };
+}
+
 module.exports = {
     preflight: preflight,
     initializeTmpDirs: initializeTmpDirs,
-    validateDatafile: validateDatafile
+    validateDatafile: validateDatafile,
+    dataFit: dataFit
     // log: log
 };

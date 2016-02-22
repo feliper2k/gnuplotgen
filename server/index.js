@@ -176,6 +176,20 @@ router.delete('/upload/:id', function (req, res, next) {
     });
 });
 
+// data fitting
+router.post('/fit/:id', function (req, res, next) {
+    gpUtils.preflight(res);
+
+    var filePath = settings.temp.uploadsDir + '/' + req.params.id;
+    var dataFit = gpUtils.dataFit(filePath, req.body);
+
+    var gp = gnuplot();
+    gp.print(dataFit.toString(), { end: true });
+    gp.on('end', function () {
+        res.status(200).send(dataFit.readFitData()).end();
+    });
+});
+
 
 app.use(router);
 var server = app.listen(settings.server.port, function () {
