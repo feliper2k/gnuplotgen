@@ -121,7 +121,7 @@ $icon-size-lg: 36px;
 }
 
 .ribbonitem__plotParametric {
-    max-width: 220px;
+    max-width: 260px;
 }
 
 .ribbonitem__axesMarkersAdvanced {
@@ -133,8 +133,15 @@ $icon-size-lg: 36px;
     max-width: 340px;
 }
 
-.ribbonitem__axesMarkers {
+.ribbonitem__axesMarkers,
+.ribbonitem__fitLogging {
     min-width: 250px;
+}
+
+.ribbonitem__fitLogging {
+    span {
+        white-space: nowrap;
+    }
 }
 
 .ribbonitem__keyPosition {

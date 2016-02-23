@@ -1,6 +1,7 @@
 'use strict';
 
-function RibbonActionListener($mdDialog, $http, plotRenderer, plotModel, datasetsModel, connectionManager) {
+function RibbonActionListener($mdDialog, $http, plotRenderer, plotModel, datasetsModel,
+    connectionManager, fitGenerator) {
     'ngInject';
 
     let actions = {
@@ -72,6 +73,21 @@ function RibbonActionListener($mdDialog, $http, plotRenderer, plotModel, dataset
             plotRenderer.exportEPS().then(function (success) {
                 window.location = connectionManager.url() + success.data.path;
             });
+        },
+
+        'about': (event) => {
+            $mdDialog.show({
+                controller: 'gpMarginsModal',
+                controllerAs: 'ac',
+                templateUrl: 'modals/about.html',
+                parent: angular.element(document.body),
+                targetEvent: event,
+                clickOutsideToClose: true
+            })
+        },
+
+        'fitGenerate': (event) => {
+            fitGenerator.newFit();
         }
     };
 

@@ -49,6 +49,11 @@ let tabsHome = {
         icon: 'settings_input_hdmi',
         type: 'single',
         action: 'manageConnection'
+    }, {
+        label: 'About',
+        icon: 'info_outline',
+        type: 'single',
+        action: 'about'
     }]
 };
 

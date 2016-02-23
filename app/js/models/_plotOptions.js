@@ -146,5 +146,52 @@ module.exports = {
         id: 'full', label: 'Full color'
     }, {
         id: 'mono', label: 'Monochrome'
-    }]
+    }],
+
+    fit: {
+        fittingFn: [{
+            label: 'a (Constant)',
+            value: '${a}',
+            variables: ['a']
+        }, {
+            label: 'ax+b (Linear)',
+            value: '${a}*x+${b}',
+            variables: ['a', 'b']
+        }, {
+            label: 'ax²+bx+c (Quadratic)',
+            value: '${a}*x**2+${b}*x+${c}',
+            variables: ['a', 'b', 'c']
+        }, {
+            label: 'b·eᵃˣ (Exponential)',
+            value: '${a}',
+            variables: ['a', 'b']
+        }, {
+            label: 'a/x+b (Rational I)',
+            value: '${a}/x+${b}',
+            variables: ['a', 'b']
+        }, {
+            label: 'a/(x+b) (Rational II)',
+            value: '${a}/(x+${b})',
+            variables: ['a', 'b']
+        }, {
+            label: 'a/x²+b (Rational III)',
+            value: '${a}/x**x+${b}',
+            variables: ['a', 'b']
+        }, {
+            label: 'b·sin(ax+c) (Sinusoid)',
+            value: '${b}*sin(${a}*x+${c})',
+            variables: ['a', 'b', 'c']
+        }],
+
+        precision: [{
+            label: 'ε = 10⁻⁴',
+            value: '1e-4'
+        }, {
+            label: 'ε = 10⁻⁶',
+            value: '1e-6'
+        }, {
+            label: 'ε = 10⁻⁸',
+            value: '1e-8'
+        }]
+    }
 };

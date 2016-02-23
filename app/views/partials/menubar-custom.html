@@ -272,3 +272,53 @@
         </md-input-container>
     </div>
 </ribbon-item-src>
+
+<ribbon-item-src name="fitSelectData">
+    <div class="row" layout-align="top center">
+        <md-input-container>
+            <label>Current dataset</label>
+            <md-select ng-model="rbm.plot.fit.selectedDataset">
+                <md-option ng-repeat="ds in rbm.plot.datasetsFiles" ng-value="$index">
+                    {{ ds.label }}
+                </md-option>
+            </md-select>
+        </md-input-container>
+    </div>
+    <div class="row">
+        <md-input-container ng-hide="rbm.plot.datasetsFiles.length">
+            <span layout-padding>
+                 <md-icon layout-margin aria-label="info_outline">info_outline</md-icon> No data available
+            </span>
+        </md-input-container>
+    </div>
+</ribbon-item-src>
+
+<ribbon-item-src name="fitOptions">
+    <div class="row" layout-align="top center">
+        <md-input-container>
+            <label>Fitting function</label>
+            <md-select ng-model="rbm.plot.fit.fittingFn">
+                <md-option ng-repeat="opt in rbm.plot.options.fit.fittingFn" ng-value="$index">
+                    <span>{{ opt.label }}</span>
+                </md-option>
+            </md-select>
+        </md-input-container>
+    </div>
+    <div class="row" layout-align="top center">
+        <md-input-container>
+            <label>Precision</label>
+            <md-select ng-model="rbm.plot.fit.precision">
+                <md-option ng-repeat="opt in rbm.plot.options.fit.precision" ng-value="$index">
+                    <span ng-bind="opt.label"></span>
+                </md-option>
+            </md-select>
+        </md-input-container>
+    </div>
+</ribbon-item-src>
+
+<ribbon-item-src name="fitLogging">
+    <div class="row" ng-repeat="v in ['a', 'b', 'c']" layout="row">
+        <span layout-padding flex="50">{{ v }} = {{ rbm.plot.fit.coeffs[v] }}</span>
+        <span layout-padding flex="50">error = {{ rbm.plot.fit.errors[v] }} σ</span>
+    </div>
+</ribbon-item-src>

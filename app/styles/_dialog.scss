@@ -19,6 +19,7 @@ md-dialog {
             text-transform: uppercase;
             // padding-top: 4px;
             padding: 6px;
+            padding-left: 46px;
         }
 
         // md-icon {
@@ -114,5 +115,25 @@ md-dialog {
         md-input-container {
             width: 50%; margin: auto;
         }
+    }
+}
+
+.dialog__about {
+    md-dialog-content {
+        h2 {
+            font-size: 1.5em; font-weight: 200;
+            margin-bottom: 20px;
+        }
+    }
+
+    md-icon.about-icon {
+        width: 96px; height: 96px; line-height: 96px;
+        font-size: 96px;
+        margin: 30px;
+    }
+
+    p.about-text {
+        text-align: center;
+        margin: 1em;
     }
 }

@@ -110,6 +110,10 @@ function gpPlotModel(datasetsModel) {
             return datasetsModel.getCollection();
         },
 
+        get datasetsFiles() {
+            return _.filter(datasetsModel.getCollection(), (set) => set.type === 'file');
+        },
+
         // datasets: [],
 
         selectedStyle: 0,
@@ -149,6 +153,23 @@ function gpPlotModel(datasetsModel) {
             enable: false,
             tmin: 0,
             tmax: 1
+        },
+
+        fit: {
+            selectedDataset: null,
+            coeffs: {
+                'a': '-',
+                'b': '-',
+                'c': '-'
+            },
+            errors: {
+                'a': '-',
+                'b': '-',
+                'c': '-'
+            },
+
+            fittingFn: 0,
+            precision: 0
         },
 
         options: options
