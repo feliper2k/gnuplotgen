@@ -3,10 +3,10 @@ var Q = require('q');
 
 function parseToObject(inputString) {
     var valuePattern = /(GPVAL_\S+)\s=\s\"?([^\"\n\t]+)/g,      // variable pattern: GPVAL_name = "string" OR GPVAL_name = flo.at
-        result = {}, tmp;
+        result = {}, match;
 
-    while(tmp = valuePattern.exec(inputString)) {
-        var key = tmp[1], value = tmp[2];
+    while(match = valuePattern.exec(inputString)) {
+        var key = match[1], value = match[2];
         result[key] = value;
     }
 
