@@ -1,16 +1,25 @@
-'use strict';
-
 import angular from 'angular';
+
 const bulk = require('bulk-require');
-
 const controllersModule = angular.module('app.controllers', []);
+const controllers = bulk(__dirname, ['./**/!(*index|*.spec|ribbon-*).js']);
 
-const controllers = bulk(__dirname, ['./**/!(*index|*.spec|ribbon-tab*).js']);
+function declare(controllerMap) {
+  Object.keys(controllerMap).forEach((key) => {
+    let item = controllerMap[key];
 
-Object.keys(controllers).forEach((key) => {
-  let item = controllers[key];
+    if (!item) {
+      return;
+    }
 
-  controllersModule.controller(item.name, item.fn);
-});
+    if (item.fn && typeof item.fn === 'function') {
+      controllersModule.controller(item.name, item.fn);
+    } else {
+      declare(item);
+    }
+  });
+}
+
+declare(controllers);
 
 export default controllersModule;

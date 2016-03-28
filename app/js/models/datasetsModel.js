@@ -59,7 +59,7 @@ function gpDatasetsModel($http, connectionManager, $q) {
     };
 }
 
-
+ 
 export default {
     name: 'datasetsModel',
     value: gpDatasetsModel
